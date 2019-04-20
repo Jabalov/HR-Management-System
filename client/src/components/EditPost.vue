@@ -21,8 +21,10 @@ export default {
   name: 'editpost',
   data () {
     return {
-      title: '',
-      description: ''
+      name: '',
+      skills: '',
+      dept: '',
+      runningTasks: ''
     }
   },
   mounted () {
@@ -33,15 +35,19 @@ export default {
       const response = await PostsService.getPost({
         id: this.$route.params.id
       })
-      this.title = response.data.title
-      this.description = response.data.description
+      this.name = response.data.name
+      this.skills = response.data.skills
+      this.dept = response.data.dept
+      this.runningTasks = response.data.runningTasks
       // this.$router.push({ name: 'Posts' })
     },
     async updatePost () {
       await PostsService.updatePost({
         id: this.$route.params.id,
-        title: this.title,
-        description: this.description
+        name: this.name,
+        skills: this.skills,
+        dept: this.dept,
+        runningTasks: this.runningTasks
       })
       this.$swal(
         'Great!',

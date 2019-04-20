@@ -2,8 +2,19 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
-  title: String,
-  description: String
+  name: {
+    type: String,
+    required: true
+  },
+  skills: {
+    type: String
+  },
+  dept: {
+    type: String
+  },
+  runningTasks: {
+    type: String
+  }
 });
 
 var Post = mongoose.model("Post", PostSchema);

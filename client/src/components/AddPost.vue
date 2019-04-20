@@ -1,12 +1,18 @@
 <template>
   <div class="posts">
-    <h1>Add Post</h1>
+    <h1>Add Employer</h1>
       <div class="form">
         <div>
-          <input type="text" name="title" placeholder="TITLE" v-model="title">
+          <input type="text" name="name" placeholder="name" v-model="name">
         </div>
         <div>
-          <textarea rows="15" cols="15" placeholder="DESCRIPTION" v-model="description"></textarea>
+          <input type="text" name="name" placeholder="skills" v-model="skills">
+        </div>
+        <div>
+          <input type="text" name="name" placeholder="dept" v-model="dept">
+        </div>
+        <div>
+          <textarea rows="15" cols="15" placeholder="running Tasks" v-model="runningTasks"></textarea>
         </div>
         <div>
           <button class="app_post_btn" @click="addPost">Add</button>
@@ -21,15 +27,19 @@ export default {
   name: 'addpost',
   data () {
     return {
-      title: '',
-      description: ''
+      name: '',
+      skills: '',
+      dept: '',
+      runningTasks: ''
     }
   },
   methods: {
     async addPost () {
       await PostsService.addPost({
-        title: this.title,
-        description: this.description
+        name: this.name,
+        skills: this.skills,
+        dept: this.dept,
+        runningTasks: this.runningTasks
       })
       this.$swal(
         'Great!',

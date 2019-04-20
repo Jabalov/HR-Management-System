@@ -1,19 +1,23 @@
 <template>
   <div class="posts">
-    <h1>Posts</h1>
+    <h1>Employees</h1>
     <div v-if="posts.length > 0" class="table-wrap">
       <div>
-        <router-link v-bind:to="{ name: 'addpost' }" class="">Add Post</router-link>
+        <router-link v-bind:to="{ name: 'addpost' }" class="">Add Employer</router-link>
       </div>
       <table>
         <tr>
-          <td>Title</td>
-          <td width="550">Description</td>
+          <td>Name</td>
+          <td width="550">Skills</td>
+          <td>Department</td>
+          <td>Running Tasks</td>
           <td width="100" align="center">Action</td>
         </tr>
         <tr v-for="post in posts">
-          <td>{{ post.title }}</td>
-          <td>{{ post.description }}</td>
+          <td>{{ post.name }}</td>
+          <td>{{ post.skills }}</td>
+          <td>{{ post.dept }}</td>
+          <td>{{ post.runningTasks }}</td>
           <td align="center">
             <router-link v-bind:to="{ name: 'editpost', params: { id: post._id } }">Edit</router-link> |
             <a href="#" @click="deletePost(post._id)">Delete</a>
@@ -22,8 +26,8 @@
       </table>
     </div>
     <div v-else>
-      There are no posts.. Lets add one now <br /><br />
-      <router-link v-bind:to="{ name: 'addpost' }" class="add_post_link">Add Post</router-link>
+      There are no Employeers.. Lets add one now <br /><br />
+      <router-link v-bind:to="{ name: 'addpost' }" class="add_post_link">Add Employer</router-link>
     </div>
   </div>
 </template>
