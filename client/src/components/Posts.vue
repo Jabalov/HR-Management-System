@@ -8,7 +8,7 @@
       <table>
         <tr>
           <td>name</td>
-          <td width="550">skills</td>
+          <td width="550">Department</td>
           <td width="100" align="center">Action</td>
         </tr>
         <tr v-for="post in posts">
@@ -22,7 +22,7 @@
       </table>
     </div>
     <div v-else>
-      There are no posts.. Lets add one now <br /><br />
+      There are no Employers.. Lets add one now <br /><br />
       <router-link v-bind:to="{ name: 'addpost' }" class="add_post_link">Add Employeer</router-link>
     </div>
   </div>
