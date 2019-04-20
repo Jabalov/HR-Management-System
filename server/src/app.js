@@ -4,7 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 
 const app = express();
-app.use(morgan("combined"));
+app.use(morgan("tiny"));
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -14,7 +14,7 @@ var db = mongodb_conn_module.connect();
 var Post = require("../models/post");
 
 app.get("/posts", (req, res) => {
-  Post.find({}, "name department", function(error, posts) {
+  Post.find({}, function (error, posts) {
     if (error) {
       console.error(error);
     }
@@ -28,12 +28,14 @@ app.post("/add_post", (req, res) => {
   var db = req.db;
   var name = req.body.name;
   var department = req.body.department;
+  var skills = req.body.skills;
   var new_post = new Post({
-    name,
-    department
+    name : name ,
+    department :department ,
+    skills : skills 
   });
 
-  new_post.save(function(error) {
+  new_post.save(function (error) {
     if (error) {
       console.log(error);
     }
@@ -45,14 +47,14 @@ app.post("/add_post", (req, res) => {
 
 app.put("/posts/:id", (req, res) => {
   var db = req.db;
-  Post.findById(req.params.id, "name department", function(error, post) {
+  Post.findById(req.params.id, "name department", function (error, post) {
     if (error) {
       console.error(error);
     }
 
     post.name = req.body.name;
     post.department = req.body.department;
-    post.save(function(error) {
+    post.save(function (error) {
       if (error) {
         console.log(error);
       }
@@ -69,7 +71,7 @@ app.delete("/posts/:id", (req, res) => {
     {
       _id: req.params.id
     },
-    function(err, post) {
+    function (err, post) {
       if (err) res.send(err);
       res.send({
         success: true
@@ -80,7 +82,7 @@ app.delete("/posts/:id", (req, res) => {
 
 app.get("/post/:id", (req, res) => {
   var db = req.db;
-  Post.findById(req.params.id, "name skills", function(error, post) {
+  Post.findById(req.params.id, "name skills", function (error, post) {
     if (error) {
       console.error(error);
     }

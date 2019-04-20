@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
   name: String,
-  department: String
+  department: String,
+  skills :String
 });
 
 var Post = mongoose.model("Post", PostSchema);
