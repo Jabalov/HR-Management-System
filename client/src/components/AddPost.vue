@@ -3,16 +3,10 @@
     <h1>Add Employer</h1>
       <div class="form">
         <div>
-          <input type="text" name="name" placeholder="name" v-model="name">
+          <input type="text" name="title" placeholder="name" v-model="title">
         </div>
         <div>
-          <input type="text" name="name" placeholder="skills" v-model="skills">
-        </div>
-        <div>
-          <input type="text" name="name" placeholder="dept" v-model="dept">
-        </div>
-        <div>
-          <textarea rows="15" cols="15" placeholder="running Tasks" v-model="runningTasks"></textarea>
+          <textarea  placeholder="department" v-model="description"></textarea>
         </div>
         <div>
           <button class="app_post_btn" @click="addPost">Add</button>
@@ -27,19 +21,15 @@ export default {
   name: 'addpost',
   data () {
     return {
-      name: '',
-      skills: '',
-      dept: '',
-      runningTasks: ''
+      title: '',
+      description: ''
     }
   },
   methods: {
     async addPost () {
       await PostsService.addPost({
-        name: this.name,
-        skills: this.skills,
-        dept: this.dept,
-        runningTasks: this.runningTasks
+        title: this.title,
+        description: this.description
       })
       this.$swal(
         'Great!',
