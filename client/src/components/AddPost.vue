@@ -6,7 +6,10 @@
           <input type="text" name="title" placeholder="name" v-model="title">
         </div>
         <div>
-          <textarea rows="15" cols="15" placeholder="department" v-model="description"></textarea>
+          <input cols="15" placeholder="department" v-model="description">
+        </div>
+        <div>
+          <textarea rows="15" cols="15" placeholder="skills" v-model="skills"></textarea>
         </div>
         <div>
           <button class="app_post_btn" @click="addPost">Add</button>
@@ -22,14 +25,16 @@ export default {
   data () {
     return {
       title: '',
-      description: ''
+      description: '',
+      skills: ''
     }
   },
   methods: {
     async addPost () {
       await PostsService.addPost({
-        title: this.title,
-        description: this.description
+        name: this.title,
+        department: this.description,
+        skills: this.skills
       })
       this.$swal(
         'Great!',

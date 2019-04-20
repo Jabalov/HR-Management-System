@@ -2,24 +2,27 @@
   <div class="posts">
     <h1>Employers</h1>
     <div v-if="posts.length > 0" class="table-wrap">
-      <div>
-        <router-link v-bind:to="{ name: 'addpost' }" class="">Add Employers</router-link>
-      </div>
+
       <table>
         <tr>
-          <td>name</td>
-          <td width="550">Department</td>
-          <td width="100" align="center">Action</td>
+          <td width = "150">name</td>
+          <td width="150">Department</td>
+          <td width="300">Skills</td>
+          <td width="150" align="center">Action</td>
         </tr>
         <tr v-for="post in posts">
-          <td>{{ post.title }}</td>
-          <td>{{ post.description }}</td>
+          <td>{{ post.name }}</td>
+          <td>{{ post.department }}</td>
+          <td>{{ post.skills }}</td>
           <td align="center">
             <router-link v-bind:to="{ name: 'editpost', params: { id: post._id } }">Edit</router-link> |
             <a href="#" @click="deletePost(post._id)">Delete</a>
           </td>
         </tr>
       </table>
+            <div class="add-emp-btn">
+        <router-link v-bind:to="{ name: 'addpost' }" class="btn" >Add Employers</router-link>
+      </div>
     </div>
     <div v-else>
       There are no Employers.. Lets add one now <br /><br />
@@ -66,6 +69,9 @@ export default {
 }
 </script>
 <style type="text/css">
+.add-emp-btn{
+  margin-top: 5px;
+}
 .table-wrap {
   width: 60%;
   margin: 0 auto;

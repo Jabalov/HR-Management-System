@@ -1,12 +1,15 @@
 <template>
   <div class="posts">
-    <h1>Edit Post</h1>
+    <h1>Edit ata</h1>
       <div class="form">
         <div>
-          <input type="text" name="Ename" placeholder="Ename" v-model="Ename">
+          <input type="text" name="Ename" placeholder="name" v-model="title">
         </div>
         <div>
-          <textarea rows="15" cols="15" placeholder="department" v-model="department"></textarea>
+          <textarea rows="15" cols="15" placeholder="department" v-model="description"></textarea>
+        </div>
+        <div>
+          <input type="text" name="Ename" placeholder="Ename" v-model="skills">
         </div>
         <div>
           <button class="app_post_btn" @click="updatePost">Update</button>
@@ -21,8 +24,9 @@ export default {
   name: 'editpost',
   data () {
     return {
-      Ename: '',
-      department: ''
+      title: '',
+      description: '',
+      skills: ''
     }
   },
   mounted () {
@@ -33,15 +37,16 @@ export default {
       const response = await PostsService.getPost({
         id: this.$route.params.id
       })
-      this.Ename = response.data.Ename
-      this.department = response.data.department
-      // this.$router.push({ name: 'Posts' })
+      this.name = response.data.title
+      this.department = response.data.description
+      this.skills = response.data.skills
     },
     async updatePost () {
       await PostsService.updatePost({
         id: this.$route.params.id,
-        Ename: this.Ename,
-        department: this.department
+        name: this.title,
+        department: this.description,
+        skills: this.skills
       })
       this.$swal(
         'Great!',
