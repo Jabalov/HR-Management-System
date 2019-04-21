@@ -6,7 +6,7 @@ export default {
   },
 
   addPost (params) {
-    return Api().post('add_post', params)
+    return Api().post('posts/add_post', params)
   },
 
   updatePost (params) {
@@ -14,10 +14,11 @@ export default {
   },
 
   getPost (params) {
-    return Api().get('post/' + params.id)
+    return Api().get('posts/post/' + params.id)
   },
 
   deletePost (id) {
     return Api().delete('posts/' + id)
   }
 }
+

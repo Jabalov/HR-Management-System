@@ -1,15 +1,15 @@
 <template>
   <div class="posts">
-    <h1>Edit ata</h1>
+    <h1>Edit data</h1>
       <div class="form">
         <div>
-          <input type="text" name="Ename" placeholder="name" v-model="title">
+          <input type="text" name="name" placeholder="name" v-model="title">
         </div>
         <div>
-          <textarea rows="15" cols="15" placeholder="department" v-model="description"></textarea>
+          <textarea placeholder="department" v-model="description"></textarea>
         </div>
         <div>
-          <input type="text" name="Ename" placeholder="Ename" v-model="skills">
+          <input type="text" name="name" placeholder="skills" v-model="skills">
         </div>
         <div>
           <button class="app_post_btn" @click="updatePost">Update</button>

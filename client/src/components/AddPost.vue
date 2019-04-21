@@ -6,10 +6,10 @@
           <input type="text" name="title" placeholder="name" v-model="title">
         </div>
         <div>
-          <input cols="15" placeholder="department" v-model="description">
+          <input placeholder="department" v-model="description">
         </div>
         <div>
-          <textarea rows="15" cols="15" placeholder="skills" v-model="skills"></textarea>
+          <textarea placeholder="skills" v-model="skills"></textarea>
         </div>
         <div>
           <button class="app_post_btn" @click="addPost">Add</button>
