@@ -11,11 +11,13 @@ router.post('/', async (req, res) => {
 
   let user = await User.findOne({ userName: req.body.userName });
   if (user) return res.status(400).send('The user name is already taken');
-  user = new User(_.pick(req.body, ['userName', 'name', 'password']));
+  user = new User(_.pick(req.body, ['userName', 'name', 'password', 'hr']));
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
-  res.send(_.pick(user, ['_id', 'userName', 'name']));
+
+  const token = user.generateAuthToken();
+  res.header('x-auth-token', token).send(_.pick(user, ['_id', 'userName', 'name']));
 });
 
 module.exports = router;
