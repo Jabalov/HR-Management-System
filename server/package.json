@@ -11,11 +11,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.1",
+    "config": "^3.1.0",
     "cors": "^2.8.4",
     "express": "^4.15.4",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
     "mongoose": "^5.5.2",
     "morgan": "^1.8.2",
     "nodemon": "^1.12.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-vue": "^5.2.2"
   }
 }
