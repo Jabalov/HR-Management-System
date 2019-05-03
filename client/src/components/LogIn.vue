@@ -4,14 +4,17 @@
     <div id ="sw_app" class="loginBox"> 
         
             <img src="./user.png" class="user">
-            <h2>sign in</h2>
+            <h2>Log in</h2>
             <form>
                 <p>Name</p>
-                <input v-model="name" type="text" name = "">
+                <input v-model="name" type="text" name = "" required>
                 <p>password</p>
-                <input v-model="password" type="password" name = "" >
-                <input  type="submit" v-on:click="post" name = "" value="sign in "> 
+                <input v-model="password" type="password" name = "" required>
+                <input  type="submit" v-on:click="post" name = "" value="Log in " >
+
+                <router-link  to="/Registration">
                 <input type="submit" name = "" value="registration">
+                </router-link>
                 
             </form>
         </div>
@@ -23,7 +26,7 @@
 <script>
  const axios = require('axios');
 export default {
-  name: 'signin',
+  name: 'LogIn',
 
   data(){
 	  return{
@@ -33,18 +36,22 @@ export default {
   },
   methods:{
 	  post(){
-			axios.post ('http://localhost:8080/', {
-						userName: this.name,
-						password: this.password, })
-				.then(function(response){
-						console.log(response);
+                
+				axios.post('http://localhost:8081/auth/',{ 
+					userName: this.name,
+					password: this.password, })
+			    .then(function(response){
+					console.log(response);
 
-					})
-					.catch(function(error)
-					{
-						console.log(error);
-					})
-	  }
+				})
+				.catch(function(error)
+				{
+					
+					console.log(error.response);
+				})
+									
+
+			},
 
             }
   }

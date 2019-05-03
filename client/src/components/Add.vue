@@ -1,12 +1,12 @@
 <template>
  
- <h1> Posts </h1>
+ <h1> Add </h1>
 
 </template>
 
 <script>
 export default {
-  name: 'posts',
+  name: 'Add',
 }
 
 
