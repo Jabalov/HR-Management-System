@@ -10,7 +10,7 @@
           <td width="300">Skills</td>
           <td width="150" align="center">Action</td>
         </tr>
-        <tr v-for="post in posts">
+        <tr v-bind:v-for="post in posts">
           <td>{{ post.name }}</td>
           <td>{{ post.department }}</td>
           <td>{{ post.skills }}</td>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import PostsService from '@/services/PostsService'
 export default {
   name: 'posts',

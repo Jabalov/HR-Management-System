@@ -24,7 +24,7 @@
 </template>
 
 <script>
- 
+ /* eslint-disable */
  import router from '../routes'
  const axios = require('axios');
 export default {
