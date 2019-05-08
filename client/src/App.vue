@@ -8,12 +8,7 @@
     <button type="button" v-on:click=" component='Add'">Add</button>
     <button type="button" v-on:click=" component='Get'">Get</button>
     <button type="button" v-on:click=" component='LogIn'">LogIn</button>
-    <button type="button" v-on:click=" component='search'">LogIn</button>-->
-     
-  
-    
-    
-      
+    <button type="button" v-on:click=" component='search'">LogIn</button>-->    
     
     
   </div>

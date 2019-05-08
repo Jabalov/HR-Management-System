@@ -13,7 +13,7 @@
                 <input  type="submit" v-on:click="post" name = "" value="Log in " >
 
                 <router-link  to="/Registration">
-                <input type="submit" name = "" value="registration">
+                <input type="submit" name = "" value="Registration">
                 </router-link>
                 
             </form>
@@ -24,36 +24,41 @@
 </template>
 
 <script>
+ 
+ import router from '../routes'
  const axios = require('axios');
 export default {
   name: 'LogIn',
-
   data(){
 	  return{
 		  name:'',
-		  password:'',
-	  }
-  },
+			password:'',
+		}
+	},
   methods:{
+		
 	  post(){
                 
-				axios.post('http://localhost:8081/auth/',{ 
+			  	axios.post( 'http://localhost:8081/auth/',{ 
 					userName: this.name,
 					password: this.password, })
 			    .then(function(response){
 					console.log(response);
-
+					router.push('Registration');
+					//router.go({
+          //path: '/Posts'})
+					//window.location = './Registration' 
 				})
 				.catch(function(error)
 				{
-					
 					console.log(error.response);
+					alert(error.response.data);
 				})
 									
 
 			},
 
-            }
+          }
   }
 
 </script>
@@ -66,7 +71,7 @@ body
 	margin:0;
 	padding:0;
 	background-size:cover;
-    font-family: sans-serif; 
+  font-family: sans-serif; 
 }
 
 

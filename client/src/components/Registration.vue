@@ -55,12 +55,14 @@ export default {
                     hr: this.hr,})
 			    .then(function(response){
 					console.log(response);
+					alert("Sign up completed!")
 
 				})
 				.catch(function(error)
 				{
 					
 					console.log(error.response);
+					alert(error.response.data);
 				})
 									
 
