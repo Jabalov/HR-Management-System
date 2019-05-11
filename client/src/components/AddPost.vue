@@ -4,10 +4,10 @@
       <div class="form">
         <div>
           
-          <input type="text" name="title" placeholder='name' v-model="title">
+          <input placeholder='name' type="text" name="title" v-model="title" required>
         </div>
         <div>
-          <input placeholder="department" v-model="description">
+          <input placeholder="department" v-model="description" required>
         </div>
         <div>
           <textarea placeholder="skills" v-model="skills"></textarea>
@@ -15,12 +15,20 @@
         <div>
           <button class="app_post_btn" @click="addPost">Add</button>
         </div>
+        <div>
+          <router-link  to="/Posts">
+          <button class="app_post_btn" >Show Employers</button>
+          </router-link>
+        </div>
+        
       </div>
   </div>
 </template>
 
 <script>
-import PostsService from '@/services/PostsService'
+ import router from '../router'
+//import PostsService from '@/services/PostsService'
+const axios = require('axios');
 export default {
   name: 'addpost',
   data () {
@@ -31,7 +39,27 @@ export default {
     }
   },
   methods: {
-    async addPost () {
+   
+   addPost () {
+      axios.post( 'http://localhost:8081/posts/add_post',{ 
+          name: this.title,
+          department: this.description,
+          skills: this.skills
+        }) 
+        
+			  .then(function(response){
+          console.log(response);
+          alert("Great! Your post has been added!")
+          				
+				})
+				.catch(function(error)
+				{
+					console.log(error.response);
+        })
+								
+      },
+
+    /*async addPost () {
       await PostsService.addPost({
         name: this.title,
         department: this.description,
@@ -43,7 +71,7 @@ export default {
         'success'
       )
       this.$router.push({ name: 'Posts' })
-    }
+    }*/
   }
 }
 </script>
@@ -54,6 +82,9 @@ export default {
   border: 1px solid #e0dede;
   outline: none;
   font-size: 12px;
+}
+::placeholder {
+    color:rgb(136, 130, 130);
 }
 .posts  {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

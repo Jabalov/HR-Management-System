@@ -24,8 +24,8 @@
 </template>
 
 <script>
- 
- import router from '../routes'
+
+ import router from '../router'
  const axios = require('axios');
 export default {
   name: 'LogIn',
@@ -33,31 +33,26 @@ export default {
 	  return{
 		  name:'',
 			password:'',
+		
 		}
 	},
   methods:{
-		
-	  post(){
-                
-			  	axios.post( 'http://localhost:8081/auth/',{ 
+		test(){
+			
+		},
+	 async post(){
+      try {
+			  const response = await axios.post( 'http://localhost:8081/auth/',{							
 					userName: this.name,
 					password: this.password, })
-			    .then(function(response){
-					console.log(response);
-					router.push('Registration');
-					//router.go({
-          //path: '/Posts'})
-					//window.location = './Registration' 
-				})
-				.catch(function(error)
-				{
-					console.log(error.response);
-					alert(error.response.data);
-				})
-									
-
+				console.log(response);	
+				router.push({ name: "Posts" });
+			}
+			catch(error) {
+				console.log(error.response);
+				alert(error.response.data);
+				}
 			},
-
           }
   }
 
@@ -65,120 +60,101 @@ export default {
 
  <style>
 
-body  
-{
-	background: #40403f;
-	margin:0;
-	padding:0;
-	background-size:cover;
-  font-family: sans-serif; 
-}
-
-
-
-
+body{
+		background: #40403f;
+		margin:0;
+		padding:0;
+		background-size:cover;
+		font-family: sans-serif; 
+	}
 
 .loginBox
-{
-	position:absolute;
-	top:50%;
-	left:50%;
-	transform: translate(-50%, -50%);
-	width:500px;
-	height:600px;
-	padding:80px 40px;
-	box-sizing: border-box;
-	background:rgba(0, 0, 0, 0.5) ;
-	
-}
-
-
+	{
+		position:absolute;
+		top:50%;
+		left:50%;
+		transform: translate(-50%, -50%);
+		width:500px;
+		height:600px;
+		padding:80px 40px;
+		box-sizing: border-box;
+		background:rgba(0, 0, 0, 0.5) ;
+		
+	}
 
 h2
-{
-	margin:0;
-	padding:0 0 20px;
-	color:rgb(162, 200, 243);
-	text-align:center;
-} 
-
-
+	{
+		margin:0;
+		padding:0 0 20px;
+		color:rgb(162, 200, 243);
+		text-align:center;
+	} 
 
 .loginBox p
-{
-	padding:0;
-	margin:0;
-	font-weight:bold;
-	color:#fff;
-	
-} 
-
-
-.loginBox input
-{
-	width:100%;
-	margin-bottom: 20px; 
-}
+	{
+		padding:0;
+		margin:0;
+		font-weight:bold;
+		color:#fff;
+		
+	} 
 
 .loginBox input
-{
-	border: none;
-	border-bottom: 1px solid #fff;
-	background: transparent;
-	outline:none;
-	height:40px;
-	color:#fff;
-	font-size: 16px;
-	
-	
-}
+	{
+		width:100%;
+		margin-bottom: 20px; 
+	}
 
+.loginBox input
+	{
+		border: none;
+		border-bottom: 1px solid #fff;
+		background: transparent;
+		outline:none;
+		height:40px;
+		color:#fff;
+		font-size: 16px;	
+	}
 
 .loginBox input[type="submit"]
-{
-	border:none;
-	outline:none;
-	height: 40px;
-	color:#fff;
-	font-size:16px;
-	background: rgb(255,38,126);
-	cursor:pointer;
-	border-radius:20px;
-}
-
+	{
+		border:none;
+		outline:none;
+		height: 40px;
+		color:#fff;
+		font-size:16px;
+		background: rgb(255,38,126);
+		cursor:pointer;
+		border-radius:20px;
+	}
 
 .loginBox input[type="submit"]:hover
-{
-	background: #40d5ef;
-	color: #262626;
-}
+	{
+		background: #40d5ef;
+		color: #262626;
+	}
 .loginBox a
-{
-	color: #fff;
-	font-size:14px;
-	font-weight:bold;
-} 
-
+	{
+		color: #fff;
+		font-size:14px;
+		font-weight:bold;
+	} 
 
 ::placeholder
-{
-	color:rgba(255,255,255,0.5); 
-}
-
+	{
+		color:rgba(255,255,255,0.5); 
+	}
 
 .user
-{
-	width:100px;
-	height:100px; 
-	overflow:hidden;
-	position:absolute;
-	top:calc(-100px/2);
-	left:calc(50% - 50px);
-	border-radius:50%;
-}
- 
-
-
+	{
+		width:100px;
+		height:100px; 
+		overflow:hidden;
+		position:absolute;
+		top:calc(-100px/2);
+		left:calc(50% - 50px);
+		border-radius:50%;
+	}
  
 </style>
 

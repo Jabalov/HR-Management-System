@@ -2,7 +2,6 @@
   <div class="posts">
     <h1>Employers</h1>
     <div v-if="posts.length > 0" class="table-wrap">
-
       <table>
         <tr>
           <td width = "150">name</td>
@@ -16,7 +15,7 @@
           <td>{{ post.skills }}</td>
           <td align="center">
             <router-link v-bind:to="{ name: 'editpost', params: { id: post._id } }">Edit</router-link> |
-            <a href="#" @click="deletePost(post._id)">Delete</a>
+            <a href="#"  @click="deletePost(post._id)">Delete</a>
           </td>
         </tr>
       </table>
@@ -31,8 +30,11 @@
   </div>
 </template>
 
+
 <script>
+
 import PostsService from '@/services/PostsService'
+const axios = require('axios');
 export default {
   name: 'posts',
   data () {
@@ -43,12 +45,30 @@ export default {
   mounted () {
     this.getPosts()
   },
+
   methods: {
     async getPosts () {
       const response = await PostsService.fetchPosts()
       this.posts = response.data.posts
     },
-    async deletePost (id) {
+
+    async deletePost(id){
+        
+			  await	axios.delete( 'http://localhost:8081/posts/'+id)
+					 
+        .then(function(response){
+        console.log(response);
+
+				})
+				.catch(function(error)
+				{
+					console.log(error.response);
+
+				})
+
+      },
+      
+   /* async deletePost (id) {
       const $this = this
       $this.$swal({
         title: 'Are you sure?',
@@ -64,13 +84,38 @@ export default {
           path: '/'
         })
       })
-    }
+   }*/
   }
 }
+
 </script>
+
+
+
 <style type="text/css">
+a.add_post_link {
+  background: #4d7ef7;
+  color: #fff;
+  padding: 10px 80px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+}
 .add-emp-btn{
   margin-top: 5px;
+  background-color: rgb(255,38,126); 
+  border: none;
+  color: #fff;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  
+}
+.add-emp-btn:hover {
+  background-color: #40d5ef;
+  color: white;
 }
 .table-wrap {
   width: 60%;
@@ -87,22 +132,15 @@ table tr td {
   padding: 10px;
 }
 table tr:nth-child(odd) {
-  background: #f2f2f2;
+  background: #ffffff2a;
 }
 table tr:nth-child(1) {
   background: #4d7ef7;
   color: #fff;
 }
 a {
-  color: #4d7ef7;
+  color: #6debf7;
   text-decoration: none;
 }
-a.add_post_link {
-  background: #4d7ef7;
-  color: #fff;
-  padding: 10px 80px;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: bold;
-}
+
 </style>

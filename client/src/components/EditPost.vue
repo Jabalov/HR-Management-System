@@ -13,22 +13,30 @@
         </div>
         <div>
           <button class="app_post_btn" @click="updatePost">Update</button>
+          
         </div>
+        <router-link  to="/Posts">
+          <button class="app_post_btn" >Show Employers</button>
+          </router-link>
       </div>
   </div>
 </template>
 
 <script>
 import PostsService from '@/services/PostsService'
+const axios = require('axios');
 export default {
   name: 'editpost',
   data () {
     return {
       title: '',
       description: '',
-      skills: ''
+      skills: '',
+      id : this.$route.params.id
     }
   },
+
+
   mounted () {
     this.getPost()
   },
@@ -41,7 +49,29 @@ export default {
       this.department = response.data.description
       this.skills = response.data.skills
     },
-    async updatePost () {
+
+    
+updatePost(){
+			  	axios.put( `http://localhost:8081/posts/${this.id}` ,{
+                
+                name: this.title,
+                department: this.description,
+                skills: this.skills
+        }) 
+        
+			    .then(function(response){
+          console.log(response);
+          				
+				})
+				.catch(function(error)
+				{
+          //console.log("here!");
+					console.log(error.response);
+        })
+								
+      },
+      
+    /*async updatePost () {
       await PostsService.updatePost({
         id: this.$route.params.id,
         name: this.title,
@@ -54,7 +84,8 @@ export default {
         'success'
       )
       this.$router.push({ name: 'Posts' })
-    }
+    }*/
+
   }
 }
 </script>
@@ -66,9 +97,13 @@ export default {
   outline: none;
   font-size: 12px;
 }
+::placeholder {
+    color:rgb(136, 130, 130);
+}
 .form div {
   margin: 20px;
 }
+
 .app_post_btn {
   background: #4d7ef7;
   color: #fff;
@@ -80,5 +115,6 @@ export default {
   border: none;
   cursor: pointer;
 }
+
 </style>
 

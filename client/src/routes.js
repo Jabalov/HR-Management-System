@@ -9,5 +9,5 @@ export default[
 {path:'/Registration',component:Registration, name :'Registration'},
 {path:'/Posts',component:Posts, name :'Posts'},
 {path:'/AddPost',component:AddPost, name :'addpost'},
-{path:'/EditPost',component:EditPost, name :'EditPost'}
+{path:'/EditPost',component:EditPost, name :'editpost'}
 ]
