@@ -6,8 +6,8 @@
             <img src="./user.png" class="user">
             <h2>Log in</h2>
             <form>
-                <p>Name</p>
-                <input v-model="name" type="text" name = "" required>
+                <p>Username</p>
+                <input v-model="username" type="text" name = "" required>
                 <p>password</p>
                 <input v-model="password" type="password" name = "" required>
                 <input  type="submit" v-on:click="post" name = "" value="Log in " >
@@ -27,11 +27,13 @@
  /* eslint-disable */
  import router from '../routes'
  const axios = require('axios');
+
 export default {
-  name: 'LogIn',
+	name: 'LogIn',
+
   data(){
 	  return{
-		  name:'',
+		  username:'',
 			password:'',
 		}
 	},
@@ -40,14 +42,14 @@ export default {
 	  post(){
                 
 			  	axios.post( 'http://localhost:8081/auth/',{ 
-					userName: this.name,
+					username: this.username,
 					password: this.password, })
 			    .then(function(response){
-					console.log(response);
-					router.push('Registration');
-					//router.go({
-          //path: '/Posts'})
-					//window.location = './Registration' 
+						localStorage.setItem('token', response.data)  
+						axios.defaults.headers.common['Authorization'] = response.data					
+						window.location.href = 'http://localhost:8080/?#/Posts';
+					
+					
 				})
 				.catch(function(error)
 				{
@@ -57,9 +59,9 @@ export default {
 									
 
 			},
-
-          }
-  }
+	}
+          
+}
 
 </script>
 

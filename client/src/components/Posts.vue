@@ -1,6 +1,8 @@
 <template>
   <div class="posts">
     <h1>Employers</h1>
+           
+
     <div v-if="posts.length > 0" class="table-wrap">
 
       <table>
@@ -34,6 +36,8 @@
 <script>
 /* eslint-disable */
 import PostsService from '@/services/PostsService'
+import { async } from 'q';
+const axios = require('axios');
 export default {
   name: 'posts',
   data () {
@@ -44,10 +48,26 @@ export default {
   mounted () {
     this.getPosts()
   },
+
   methods: {
-    async getPosts () {
-      const response = await PostsService.fetchPosts()
-      this.posts = response.data.posts
+    getPosts: async function(){
+      await axios.get( 'http://localhost:8081/posts/',
+      {
+        headers: {
+          token: localStorage.getItem('token')
+      }
+      }
+      )
+      .then( (response) => {
+        // Here is the problem, the posts can't be updated        
+        this.posts = response.data.allPosts;
+        
+        console.log(this.posts)
+      })
+      .catch(function(error)
+      {
+        alert(error);
+      })
     },
     async deletePost (id) {
       const $this = this

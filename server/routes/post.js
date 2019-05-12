@@ -6,15 +6,15 @@ const router = express.Router();
 const Post = require('../models/post');
 
 // get all
-router.get('/', [hr, auth], async (req, res) => {
-  await Post.find({}, (error, posts) => {
+router.get('/', [auth], async (req, res) => {
+  await Post.find({}, (error, allPosts) => {
     if (error) console.error(error);
-    res.send({ posts });
+    res.send({ allPosts });
   }).sort({ _id: -1 });
 });
 
 // get one by id
-router.get('post/:id', [hr, auth], async (req, res) => {
+router.get('post/:id', [auth], async (req, res) => {
   await Post.findById(req.params.id, 'name skills', (error, post) => {
     if (error) console.error(error);
 
@@ -23,13 +23,12 @@ router.get('post/:id', [hr, auth], async (req, res) => {
 });
 
 // post new Employer
-router.post('/add_post', [hr, auth], async (req, res) => {
+router.post('/add_post', [auth], async (req, res) => {
   const new_post = new Post({
     name: req.body.name,
     department: req.body.department,
     skills: req.body.skills,
   });
-
   await new_post.save((error) => {
     if (error) console.log(error);
 
@@ -38,7 +37,7 @@ router.post('/add_post', [hr, auth], async (req, res) => {
 });
 
 // edit one employer
-router.put('/:id', [hr, auth], async (req, res) => {
+router.put('/:id', [auth], async (req, res) => {
   await Post.findById(req.params.id, 'name department', (error, post) => {
     if (error) console.error(error);
 
@@ -55,7 +54,7 @@ router.put('/:id', [hr, auth], async (req, res) => {
 });
 
 // delete by id
-router.delete('/:id', [hr, auth], async (req, res) => {
+router.delete('/:id', [auth], async (req, res) => {
   await Post.remove({ _id: req.params.id }, (err, post) => {
     if (err) res.send(err);
     res.send({ success: true });

@@ -21,8 +21,9 @@
 
 <script>
 /* eslint-disable */
-import PostsService from '@/services/PostsService'
+const axios = require('axios');
 export default {
+  
   name: 'addpost',
   data () {
     return {
@@ -32,19 +33,32 @@ export default {
     }
   },
   methods: {
-    async addPost () {
-      await PostsService.addPost({
-        name: this.title,
-        department: this.description,
-        skills: this.skills
-      })
-      this.$swal(
-        'Great!',
-        `Your post has been added!`,
-        'success'
+    addPost(){
+      
+      axios.post( 'http://localhost:8081/posts/add_post/',{ 
+      name: this.title,
+      department: this.description,
+      skills: this.skills,
+      },
+      {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+      }
       )
-      this.$router.push({ name: 'Posts' })
-    }
+      .then(function(response){
+        window.location.href = 'http://localhost:8080/?#/Posts';
+        
+      
+      })
+      .catch(function(error)
+      {
+        console.log(error.response);
+        alert(error.response.data);
+      })
+									
+
+    },
   }
 }
 </script>

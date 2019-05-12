@@ -3,7 +3,7 @@ const config = require('config');
 
 // eslint-disable-next-line func-names
 module.exports = function (req, res, next) {
-  const token = req.header('x-auth-token');
+  const token = req.header('token');
   if (!token) return res.status(401).send('Access Denied. No token provided.');
 
   try {

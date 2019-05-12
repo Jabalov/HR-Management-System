@@ -13,10 +13,7 @@
                 <p>Password</p>
                 <input v-model="password" type="password" name = "" required>
 				
-                <label class="checkbox">HR
-					<input type="checkbox"  value="" v-bind:true-value=true v-bind:false-value=false v-model="hr" >
-					<span class="check"></span>
-				</label>
+               
                 <input  type="submit" v-on:click="post" name = "" value="Sign up " >
 				
 
