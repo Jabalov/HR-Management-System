@@ -12,7 +12,8 @@
           <td width="300">Skills</td>
           <td width="150" align="center">Action</td>
         </tr>
-        <tr v-bind:v-for="post in posts">
+        
+        <tr v-for="post in posts">
           <td>{{ post.name }}</td>
           <td>{{ post.department }}</td>
           <td>{{ post.skills }}</td>
@@ -50,8 +51,8 @@ export default {
   },
 
   methods: {
-    getPosts: async function(){
-      await axios.get( 'http://localhost:8081/posts/',
+    getPosts: function(){
+      axios.get( 'http://localhost:8081/posts/',
       {
         headers: {
           token: localStorage.getItem('token')
@@ -59,10 +60,10 @@ export default {
       }
       )
       .then( (response) => {
-        // Here is the problem, the posts can't be updated        
+              
         this.posts = response.data.allPosts;
         
-        console.log(this.posts)
+
       })
       .catch(function(error)
       {

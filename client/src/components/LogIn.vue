@@ -37,10 +37,10 @@ export default {
 			password:'',
 		}
 	},
+
   methods:{
 		
-	  post(){
-                
+	  post(){     
 			  	axios.post( 'http://localhost:8081/auth/',{ 
 					username: this.username,
 					password: this.password, })
@@ -58,6 +58,9 @@ export default {
 				})
 									
 
+			
+
+				
 			},
 	}
           

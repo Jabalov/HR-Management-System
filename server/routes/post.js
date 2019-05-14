@@ -23,7 +23,7 @@ router.get('post/:id', [auth], async (req, res) => {
 });
 
 // post new Employer
-router.post('/add_post', [auth], async (req, res) => {
+router.post('/add_post', [auth, hr], async (req, res) => {
   const new_post = new Post({
     name: req.body.name,
     department: req.body.department,
@@ -37,7 +37,7 @@ router.post('/add_post', [auth], async (req, res) => {
 });
 
 // edit one employer
-router.put('/:id', [auth], async (req, res) => {
+router.put('/:id', async (req, res) => {
   await Post.findById(req.params.id, 'name department', (error, post) => {
     if (error) console.error(error);
 
@@ -54,7 +54,7 @@ router.put('/:id', [auth], async (req, res) => {
 });
 
 // delete by id
-router.delete('/:id', [auth], async (req, res) => {
+router.delete('/:id', async (req, res) => {
   await Post.remove({ _id: req.params.id }, (err, post) => {
     if (err) res.send(err);
     res.send({ success: true });
