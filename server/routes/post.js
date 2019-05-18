@@ -23,7 +23,7 @@ router.get('post/:id', [auth], async (req, res) => {
 });
 
 // post new Employer
-router.post('/add_post', [auth], async (req, res) => {
+router.post('/add_post', [auth,hr], async (req, res) => {
   const new_post = new Post({
     name: req.body.name,
     department: req.body.department,

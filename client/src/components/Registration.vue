@@ -47,7 +47,7 @@ export default {
 	  
 	  post(){
 				axios.post('http://localhost:8081/users/',{ 
-					userName: this.username,
+					username: this.username,
                     password: this.password,
                     name: this.name,
                     hr: this.hr,})

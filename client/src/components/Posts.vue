@@ -1,96 +1,117 @@
 <template>
-  <div class="posts">
+  <div class="posts container">
     <h1>Employers</h1>
-           
+    <div class="row">
+    <div class="col-2">
+      <b-nav vertical class="w-25" >
+        <b-nav-item><img class="rounded-circle img-fluid m-2" src="http://www.toraseyat.com/wp-content/uploads/2018/09/4D72305E00000578-5865427-image-a-132_1529501574562.jpg"></b-nav-item>
+        <b-nav-item disabled class="text-primary mt-5 center"><h5 class="text-primary">Nashaat</h5></b-nav-item>
+        
+      </b-nav>
+    </div>
 
-    <div v-if="posts.length > 0" class="table-wrap">
-
+    <div v-if="posts.length > 0" class="table-wrap col-10">
       <table>
         <tr>
-          <td width = "150">name</td>
+          <td width="250">Name</td>
           <td width="150">Department</td>
           <td width="300">Skills</td>
-          <td width="150" align="center">Action</td>
+          <td width="250" align="center">Action</td>
         </tr>
-        <tr v-bind:v-for="post in posts">
+        <tr v-for="post in posts">
           <td>{{ post.name }}</td>
           <td>{{ post.department }}</td>
           <td>{{ post.skills }}</td>
           <td align="center">
-            <router-link v-bind:to="{ name: 'editpost', params: { id: post._id } }">Edit</router-link> |
-            <a href="#" @click="deletePost(post._id)">Delete</a>
+            <router-link class="btn-info btn m-1" v-bind:to="{ name: 'editpost', params: { id: post._id } }">Edit</router-link>
+            <a href="#" class="btn btn-danger" @click="deletePost(post._id)">Delete</a>
           </td>
         </tr>
       </table>
-            <div class="add-emp-btn">
-        <router-link v-bind:to="{ name: 'addpost' }" class="btn" >Add Employers</router-link>
+      <div class="add-emp-btn">
+        <router-link v-bind:to="{ name: 'addpost' }" class="btn btn-primary">Add Employers</router-link>
+        <button @click="getPosts" class="m-1  btn btn-success">refresh</button>
       </div>
     </div>
-    <div v-else>
-      There are no Employers.. Lets add one now <br /><br />
+
+    <div v-else class="table-wrap m-2">
+      There are no Employers.. Lets add one now
+      <br>
+      <br>
       <router-link v-bind:to="{ name: 'addpost' }" class="add_post_link">Add Employeer</router-link>
+    </div>
     </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import PostsService from '@/services/PostsService'
-import { async } from 'q';
-const axios = require('axios');
+import PostsService from "@/services/PostsService";
+import { async } from "q";
+const axios = require("axios");
 export default {
-  name: 'posts',
-  data () {
+  name: "posts",
+  data() {
     return {
       posts: []
-    }
+    };
   },
-  mounted () {
-    this.getPosts()
+  mounted() {
+    this.getPosts();
   },
 
   methods: {
-    getPosts: async function(){
-      await axios.get( 'http://localhost:8081/posts/',
-      {
-        headers: {
-          token: localStorage.getItem('token')
-      }
-      }
-      )
-      .then( (response) => {
-        // Here is the problem, the posts can't be updated        
-        this.posts = response.data.allPosts;
-        
-        console.log(this.posts)
-      })
-      .catch(function(error)
-      {
-        alert(error);
-      })
-    },
-    async deletePost (id) {
-      const $this = this
-      $this.$swal({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then(function () {
-        PostsService.deletePost(id)
-        $this.$router.go({
-          path: '/'
+    getPosts: async function() {
+      await axios
+        .get("http://localhost:8081/posts/", {
+          headers: {
+            token: localStorage.getItem("token")
+          }
         })
-      })
+        .then(response => {
+          // Here is the problem, the posts can't be updated
+          this.posts = response.data.allPosts;
+
+          console.log(this.posts);
+        })
+        .catch(function(error) {
+          alert(error);
+        });
+    },
+    async deletePost(id) {
+      // const $this = this;
+      // $this
+      //   .$swal({
+      //     title: "Are you sure?",
+      //     text: "You won't be able to revert this!",
+      //     type: "warning",
+      //     showCancelButton: true,
+      //     confirmButtonColor: "#3085d6",
+      //     cancelButtonColor: "#d33",
+      //     confirmButtonText: "Yes, delete it!"
+      //   })
+      //   .then(
+      await axios.delete("http://localhost:8081/posts/" + id, {
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      });
+
+      $this.$router.go({
+        path: "/posts"
+      });
     }
   }
-}
+};
 </script>
 <style type="text/css">
-.add-emp-btn{
+/* *{
+  border: 1px solid red;
+} */
+/* body{
+  display : flex ;
+} */
+.add-emp-btn {
   margin-top: 5px;
 }
 .table-wrap {
@@ -98,18 +119,20 @@ export default {
   margin: 0 auto;
   text-align: center;
 }
-table th, table tr {
+
+table th,
+table tr {
   text-align: left;
 }
 table thead {
   background: #f2f2f2;
 }
 table tr td {
-  padding: 10px;
+  padding: 5px;
 }
-table tr:nth-child(odd) {
+/* table tr:nth-child(odd) {
   background: #f2f2f2;
-}
+} */
 table tr:nth-child(1) {
   background: #4d7ef7;
   color: #fff;
@@ -120,7 +143,7 @@ a {
 }
 a.add_post_link {
   background: #4d7ef7;
-  color: #fff;
+  color: rgb(255, 255, 255);
   padding: 10px 80px;
   text-transform: uppercase;
   font-size: 12px;
