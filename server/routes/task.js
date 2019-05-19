@@ -7,7 +7,7 @@ const router = express.Router();
 const Task = require('../models/tasks');
 
 // get all
-router.get('/', async (req, res) => {
+router.get('/', [auth],  async (req, res) => {
     await Task.find({}, (error, allPosts) => {
         if (error) console.error(error);
         res.send({ allPosts });
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 // get one by id
-router.get('post/:id', async (req, res) => {
+router.get('post/:id', [auth], async (req, res) => {
     await Task.findById(req.params.id, 'name skills', (error, post) => {
         if (error) console.error(error);
 
@@ -24,7 +24,7 @@ router.get('post/:id', async (req, res) => {
 });
 
 // post new Employer
-router.post('/add_post', async (req, res) => {
+router.post('/add_post', [auth], async (req, res) => {
     const new_post = new Task({
         name: req.body.name,
         department: req.body.department,
@@ -39,22 +39,22 @@ router.post('/add_post', async (req, res) => {
 });
 
 // edit one employer
-router.put('/:id', [auth], async (req, res) => {
-    await Task.findById(req.params.id, 'name department', (error, post) => {
-        if (error) console.error(error);
+// router.put('/:id', [auth], async (req, res) => {
+//     await Task.findById(req.params.id, 'name department', (error, post) => {
+//         if (error) console.error(error);
 
-        post.name = req.body.name;
-        post.department = req.body.department;
-        post.endsAt = req.body.endsAt;
-        post.by = req.body.by;
+//         post.name = req.body.name;
+//         post.department = req.body.department;
+//         post.endsAt = req.body.endsAt;
+//         post.by = req.body.by;
 
-        post.save((error) => {
-            if (error) console.log(error);
+//         post.save((error) => {
+//             if (error) console.log(error);
 
-            res.send({ success: true });
-        });
-    });
-});
+//             res.send({ success: true });
+//         });
+//     });
+// });
 
 // delete by id
 router.delete('/:id', [auth], async (req, res) => {

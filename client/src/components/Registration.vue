@@ -32,7 +32,11 @@
       <input v-model="username" type="text" name required>
       <p>Password</p>
       <input v-model="password" type="password" name required>
-
+      <div class="row" >
+        <p class="col">Are you HR</p>
+      <input class="col m-2" v-model="hr" type="checkbox" name required>
+      
+      </div>
       <input type="submit" v-on:click="post" name value="Sign up ">
 
       <router-link to="/login">
@@ -175,7 +179,7 @@ h2 {
   border-radius: 20px;
 }
 
-.checkbox {
+/* .checkbox {
   color: #fff;
   font-weight: bold;
   display: block;
@@ -188,7 +192,7 @@ h2 {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
+} */
 
 .checkbox input {
   position: absolute;

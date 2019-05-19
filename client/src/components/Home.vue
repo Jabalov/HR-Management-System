@@ -35,7 +35,7 @@
     </nav>
 
     <div class="container-fliud">
-      <div id="home" class="row" >
+      <div id="home" class="row">
         <div class="mx-auto">
           <h2 class="mx-auto" style="color:black">Welcome</h2>
           <p class="col-8 offset-2 text-center">
@@ -48,32 +48,40 @@
         <img class="img-fliud col-3 offset-2" style="height:40%" src="../assets/add.png">
         <div class="col-6 row">
           <h4 class="row">You can add new employees</h4>
-          <p class="row">adding new employee can only done by HR, and system will not authorize any other actions</p>
+          <p
+            class="row"
+          >adding new employee can only done by HR, and system will not authorize any other actions</p>
         </div>
       </div>
 
-      <div id="deleting" class="row  align-items-center bg-white" >
+      <div id="deleting" class="row align-items-center bg-white">
         <div class="col-5 offset-2">
-          <h4>You can add new tasks</h4>
-          <p>any user on our system can add task,task will involve its</p>
+          <h4>Task Manager</h4>
+          <p>
+            any user on our system can add task,task properties are task name , which
+            department related to , how many employee working on and when the task ends
+          </p>
         </div>
         <img class="img-fliud col-3" style="height:50%" src="../assets/login.png">
+      </div>
+
+      <div id="footer" class="row footer m-2 align-items-center">
+        <p class="text-center offset-5 row">Tanta Engineering 2019</p>
       </div>
     </div>
   </div>
 </template>
 
 <style  type="text/css">
-
 body {
   background-color: whitesmoke;
 }
-#home{
+#home {
   padding-top: 10%;
-  padding: 10%
+  padding: 10%;
 }
 #home {
-    background-image: url('../assets/background.jpg');
+  background-image: url("../assets/background.jpg");
 }
 /* .row{
   border : red solid 1px ;
