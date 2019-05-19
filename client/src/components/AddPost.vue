@@ -1,15 +1,37 @@
 <template>
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">HR Managemnet system</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <router-link class="nav-item nav-link" to="/">Home</router-link>
+        </div>
+      </div>
+    </nav>
   <div class="posts">
-    <h1>Add Employer</h1>
+    <h1 style="color:black;">Add Employer</h1>
       <div class="form">
         <div>
-          
+          <span style="color:black;">Name</span><br>
           <input type="text" name="title" placeholder='name' v-model="title">
         </div>
         <div>
-          <input placeholder="department" v-model="description">
+          <span style="color:black;">Department</span><br>
+          <input placeholder="department" v-model="description" >
         </div>
         <div>
+          <span style="color:black;">Skills</span><br>
           <textarea placeholder="skills" v-model="skills"></textarea>
         </div>
         <div>
@@ -17,6 +39,7 @@
         </div>
       </div>
   </div>
+</div>
 </template>
 
 <script>

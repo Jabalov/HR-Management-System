@@ -1,5 +1,5 @@
 <template>
-  <div class=" container-fliud">
+<div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">HR Managemnet system</a>
       <button
@@ -19,20 +19,21 @@
         </div>
       </div>
     </nav>
-    <h1 style="color:black;" class="text-center m-4">Employers</h1>
+  <div class="container-fliud">
+    <h1 style="color:black;" class="text-center m-4">Tasks</h1>
     <div class="row">
-      <div class="col-3">
+      <div class="col-1">
         <b-nav vertical class="w-27">
           <b-nav-item>
             <img
-              class="rounded-circle img-fluid col-5"
+              class="rounded-circle img-fluid m-2"
               src="http://www.toraseyat.com/wp-content/uploads/2018/09/4D72305E00000578-5865427-image-a-132_1529501574562.jpg"
             >
           </b-nav-item>
           <b-nav-item disabled class="text-primary mt-5 center">
             <h5 class="text-primary">Nashaat</h5>
           </b-nav-item>
-          <b-nav-item  >
+               <b-nav-item  >
             <router-link class="btn btn-secondary center m-1" to="/Tasks">Tasks</router-link>
             <br>
             <router-link class="btn btn-secondary center m-1"  to="/Posts">Employees</router-link>
@@ -48,15 +49,16 @@
           <tr>
             <td width="250">Name</td>
             <td width="150">Department</td>
-            <td width="300">Skills</td>
+            <td width="150">Assigned to</td>
+            <td width="200">Deadline</td>
             <td width="250" align="center">Action</td>
           </tr>
           <tr v-for="post in posts">
             <td>{{ post.name }}</td>
             <td>{{ post.department }}</td>
-            <td>{{ post.skills }}</td>
+            <td>{{ post.by }}</td>
+            <td>{{ post.endsAt }}</td>
             <td align="center">
-              <!-- <router-link class="btn-info btn m-1" :employee_id="post._id" to="/EditPost">Edit</router-link> -->
               <a href="#" class="btn btn-danger m-2" @click="deletePost(post._id)">Delete</a>
             </td>
           </tr>
@@ -80,6 +82,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -110,16 +113,16 @@ export default {
       posts: []
     };
   },
-  props: {
-    user: String
-  },
+      props: {
+        user: String,
+    },
   mounted() {
     this.getPosts();
   },
   methods: {
     getPosts: async function() {
       await axios
-        .get("http://localhost:8081/posts/", {
+        .get("http://localhost:8081/task/", {
           headers: {
             token: localStorage.getItem("token")
           }
@@ -147,7 +150,7 @@ export default {
       //     confirmButtonText: "Yes, delete it!"
       //   })
       //   .then(
-      await axios.delete("http://localhost:8081/posts/" + id, {
+      await axios.delete("http://localhost:8081/task/" + id, {
         headers: {
           token: localStorage.getItem("token")
         }

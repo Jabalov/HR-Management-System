@@ -1,66 +1,95 @@
 <template>
-  <div class="posts">
-    <h1>Edit data</h1>
-      <div class="form">
-        <div>
-          <input type="text" name="name" placeholder="name" v-model="title">
-        </div>
-        <div>
-          <textarea placeholder="department" v-model="description"></textarea>
-        </div>
-        <div>
-          <input type="text" name="name" placeholder="skills" v-model="skills">
-        </div>
-        <div>
-          <button class="app_post_btn" @click="updatePost">Update</button>
+<div >
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">HR Managemnet system</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <router-link class="nav-item nav-link" to="/">Home</router-link>
         </div>
       </div>
+    </nav>
+  <div class="posts">
+    <h1 style="color:black;">Edit data</h1>
+    <div class="form">
+      <div>
+        <input type="text" name="name" placeholder="name" v-model="post">
+      </div>
+      <div>
+        <input placeholder="department" v-model="description">
+      </div>
+      <div>
+        <input type="text" name="name" placeholder="skills" v-model="skills">
+      </div>
+      <div>
+        <button class="app_post_btn" @click="updatePost()">Update</button>
+      </div>
+    </div>
   </div>
+</div>
 </template>
 
 <script>
 /* eslint-disable */
-import PostsService from '@/services/PostsService'
+import PostsService from "@/services/PostsService";
 export default {
-  name: 'editpost',
-  data () {
+  props : ['employee_id'],
+  name: "editpost",
+  data() {
     return {
-      title: '',
-      description: '',
-      skills: ''
-    }
+      title: "",
+      description: "",
+      skills: ""
+    };
   },
-  mounted () {
-    this.getPost()
+  mounted() {
+    
+    this.getPost();
   },
   methods: {
-    async getPost () {
+    async getPost() {
+      console.log(this.props)
       const response = await PostsService.getPost({
         id: this.$route.params.id
-      })
-      this.name = response.data.title
-      this.department = response.data.description
-      this.skills = response.data.skills
+      });
+      this.name = response.data.title;
+      this.department = response.data.description;
+      this.skills = response.data.skills;
     },
-    async updatePost () {
+    async updatePost() {
+      await axios.put("http://localhost:8081/posts/" + id, {
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      });
+      console.log("this.title :", this.title);
       await PostsService.updatePost({
         id: this.$route.params.id,
         name: this.title,
         department: this.description,
         skills: this.skills
-      })
-      this.$swal(
-        'Great!',
-        `Your post has been updated!`,
-        'success'
-      )
-      this.$router.push({ name: 'Posts' })
+      });
+      this.$swal("Great!", `Your post has been updated!`, "success");
+      $this.$router.go({
+        path: "/posts"
+      });
     }
   }
-}
+};
 </script>
 <style type="text/css">
-.form input, .form textarea {
+.form input,
+.form textarea {
   width: 500px;
   padding: 10px;
   border: 1px solid #e0dede;
