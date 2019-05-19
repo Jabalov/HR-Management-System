@@ -1,17 +1,17 @@
 <template>
   <div class="posts">
-    <h1>Add Employer</h1>
+    <h1 style="color:black;">Add Employer</h1>
       <div class="form">
         <div>
-          <span>Name</span><br>
+          <span style="color:black;">Name</span><br>
           <input type="text" name="title" placeholder='name' v-model="title">
         </div>
         <div>
-          <span>Department</span><br>
-          <input placeholder="department" v-model="description">
+          <span style="color:black;">Department</span><br>
+          <input placeholder="department" v-model="description" >
         </div>
         <div>
-          <span>Skills</span><br>
+          <span style="color:black;">Skills</span><br>
           <textarea placeholder="skills" v-model="skills"></textarea>
         </div>
         <div>

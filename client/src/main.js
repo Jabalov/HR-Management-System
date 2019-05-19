@@ -7,22 +7,22 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 import VueRouter from 'vue-router'
-import Routes from'./routes'
+import Routes from './routes'
 import axios from 'axios'
 
-      Vue.prototype.$http = axios;
-      const token = localStorage.getItem('token');
-      if (token) {
-        Vue.prototype.$http.defaults.headers.common['Authorization'] = token
-      }
+Vue.prototype.$http = axios;
+const token = localStorage.getItem('token');
+if (token) {
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = token
+}
 Vue.config.productionTip = false
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue)
 
 export const bus = new Vue();
-const router=new VueRouter({
-  routes:Routes
+const router = new VueRouter({
+  routes: Routes
 
 });
 
@@ -35,6 +35,6 @@ Vue.filter('capitalize', function (value) {
 
 new Vue({
   render: h => h(App),
-  router:router,
+  router: router,
 }).$mount('#app')
 

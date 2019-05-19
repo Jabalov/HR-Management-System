@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const post = require('./routes/post');
 const auth = require('./routes/auth');
 const users = require('./routes/users');
+const task = require('./routes/task');
 
 
 if (!config.get('jwtPrivateKey')) {
@@ -20,6 +21,7 @@ app.use(cors());
 app.use('/posts', post);
 app.use('/auth', auth);
 app.use('/users', users);
+app.use('/task',task)
 
 
 const mongodb_conn_module = require('./mongodbConnModule');

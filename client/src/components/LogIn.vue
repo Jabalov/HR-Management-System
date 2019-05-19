@@ -1,4 +1,26 @@
  <template>
+ <div>
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">HR Managemnet system</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <router-link class="nav-item nav-link" to="/">Home</router-link>
+          <router-link class="nav-item nav-link" to="/login">login</router-link>
+          <router-link class="nav-item nav-link" to="/Registration">Register</router-link>
+        </div>
+      </div>
+    </nav>
   <div id="sw_app" class="loginBox">
     <img src="./user.png" class="user">
     <h2>Log in</h2>
@@ -8,11 +30,11 @@
       <p>password</p>
       <input v-model="password" type="password" name required>
       <input type="submit" v-on:click="post" name value="Log in ">
-
-      <router-link to="/Registration">
+      <router-link to="{ name: 'Posts', params: { user : username } }">
         <input type="submit" name value="Registration">
       </router-link>
     </form>
+  </div>
   </div>
 </template>
 
@@ -62,7 +84,7 @@ body {
 
 .loginBox {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 500px;

@@ -32,7 +32,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
-
+  background-color: beige ;
   font-family: Arial, Helvetica, sans-serif ;
 }
 </style>
