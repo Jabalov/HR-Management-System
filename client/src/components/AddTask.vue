@@ -69,9 +69,14 @@ export default {
           department: this.department_,
           endsAt: this.endsAt_,
           by: this.by_
-        })
+        },
+        {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+      })
         .then(function(response) {
-          window.location.href = "http://localhost:8080/?#/Posts";
+          window.location.href = "http://localhost:8080/?#/Tasks";
         })
         .catch(function(error) {
           console.log(error.response);
