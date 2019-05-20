@@ -38,7 +38,7 @@
         <input placeholder="skills" v-model="by_"><br>
         <span style="color:black;">Task ends at</span>
         <br>
-        <input placeholder="skills" v-model="endsAt_">
+        <input type =date placeholder="skills" v-model="endsAt_">
       </div>
       <div>
         <button class="app_post_btn" @click="addPost">Add</button>
