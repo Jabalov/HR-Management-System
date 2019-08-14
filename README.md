@@ -2,7 +2,6 @@
 
 Software Engineering Educational Subject, Simple Tasks
 
-
 ## HR system management
 
 Single page application to manipulate employee data
@@ -10,9 +9,11 @@ Single page application to manipulate employee data
 ## App functions
 
 1. Get all employee
-2. Add new emplyee
+2. Add new employee
 3. Edit employee data
 4. Delete employee
+5. Add task
+6. Get Tasks
 
 ## Technologies used :
 
@@ -48,7 +49,7 @@ at server and client folder
 1. at client folder
 
 ```bash
- npm run dev
+ npm run serve
 ```
 
 2. at server folder

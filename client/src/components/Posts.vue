@@ -1,113 +1,36 @@
 <template>
-  <div class=" container-fliud">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">HR Managemnet system</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <router-link class="nav-item nav-link" to="/">Home</router-link>
-        </div>
-      </div>
-    </nav>
-    <h1 style="color:black;" class="text-center m-4">Employers</h1>
-    <div class="row">
-      <div class="col-3">
-        <b-nav vertical class="w-27">
-          <b-nav-item>
-            <img
-              class="rounded-circle img-fluid col-5"
-              src="http://www.toraseyat.com/wp-content/uploads/2018/09/4D72305E00000578-5865427-image-a-132_1529501574562.jpg"
-            >
-          </b-nav-item>
-          <b-nav-item disabled class="text-primary mt-5 center">
-            <h5 class="text-primary">Nashaat</h5>
-          </b-nav-item>
-          <b-nav-item  >
-            <router-link class="btn btn-secondary center m-1" to="/Tasks">Tasks</router-link>
-            <br>
-            <router-link class="btn btn-secondary center m-1"  to="/Posts">Employees</router-link>
-            <br>
-            <router-link class="btn btn-danger center m-1"  to="/">sign out</router-link>
-          </b-nav-item>
-        </b-nav>
-      </div>
-
-      <div v-if="posts.length > 0" class="table-wrap col-9">
-        <!-- <b-table  striped hover :items="posts" :fields="fields"></b-table> -->
-        <table>
-          <tr>
-            <td width="250">Name</td>
-            <td width="150">Department</td>
-            <td width="300">Skills</td>
-            <td width="250" align="center">Action</td>
-          </tr>
-          <tr v-for="post in posts">
-            <td>{{ post.name }}</td>
-            <td>{{ post.department }}</td>
-            <td>{{ post.skills }}</td>
-            <td align="center">
-              <!-- <router-link class="btn-info btn m-1" :employee_id="post._id" to="/EditPost">Edit</router-link> -->
-              <a href="#" class="btn btn-danger m-2" @click="deletePost(post._id)">Delete</a>
-            </td>
-          </tr>
-        </table>
-        <div class="add-emp-btn">
-          <router-link v-bind:to="{ name: 'addpost' }" class="btn btn-primary">Add Employers</router-link>
-          <router-link to="/addtask" class="btn btn-primary m-1">Add Task</router-link>
-          <button @click="getPosts" class="m-1 btn btn-success">refresh</button>
-        </div>
-      </div>
-
-      <div v-else class="table-wrap m-2" style="color:black;">
-        There are no Employers.. Lets add one now
-        <br>
-        <br>
-        <router-link
-          v-bind:to="{ name: 'addpost' }"
-          class="add_post_link"
-          style="color:black;"
-        >Add Employeer</router-link>
-      </div>
-    </div>
-  </div>
+  <b-container>
+    <b-row>
+      <b-col lg="3" class="m-1" v-for="(post,index) in posts" :key="post.id">
+        <b-card class="fadeInLeftBig animated" :style="myStyle(index)">
+          <div v-on:click="ShowButton(post._id)">
+            <h5 style="color:blue;">{{post.name}}</h5>
+            <em>{{post.department}}</em>
+            <p>{{post.skills}}</p>
+          </div>
+          <b-row v-if="post._id === selectedItem" class="m-1 animated fadeInDown">
+            <b-button class="m-1">Edit</b-button>
+            <b-button class="m-1" variant="danger">Delete</b-button>
+          </b-row>
+        </b-card>
+      </b-col>
+    </b-row>
+    
+  </b-container>
 </template>
 
 <script>
 /* eslint-disable */
 import PostsService from "@/services/PostsService";
 import { async } from "q";
+import ourApi from "../services/apiConnect";
 const axios = require("axios");
 export default {
   name: "posts",
-
   data() {
     return {
-      fields: [
-        {
-          key: "name",
-          sortable: true
-        },
-        {
-          key: "department",
-          sortable: false
-        },
-        {
-          key: "skills",
-          label: "Person age",
-          sortable: true
-        }
-      ],
-      posts: []
+      posts: [],
+      selectedItem: null
     };
   },
   props: {
@@ -117,9 +40,21 @@ export default {
     this.getPosts();
   },
   methods: {
+    ShowButton(id) {
+      if (this.selectedItem === id) {
+        this.selectedItem = null;
+      } else {
+        this.selectedItem = id;
+      }
+    },
+
+    myStyle: function(index) {
+      //console.log(index);
+      return "animation-delay : " + index * 500 + "ms";
+    },
     getPosts: async function() {
       await axios
-        .get("http://localhost:8081/posts/", {
+        .get(ourApi.apiUrl + "posts/", {
           headers: {
             token: localStorage.getItem("token")
           }
@@ -127,11 +62,11 @@ export default {
         .then(response => {
           // Here is the problem, the posts can't be updated
           this.posts = response.data.allPosts;
-
           // console.log(this.posts);
         })
         .catch(function(error) {
-          alert(error);
+          console.log(error);
+          alert(error.errmsg);
         });
     },
     async deletePost(id) {
@@ -147,12 +82,14 @@ export default {
       //     confirmButtonText: "Yes, delete it!"
       //   })
       //   .then(
-      await axios.delete("http://localhost:8081/posts/" + id, {
-        headers: {
-          token: localStorage.getItem("token")
+      await axios.delete(
+        "https://frozen-cove-53963.herokuapp.com/posts/" + id,
+        {
+          headers: {
+            token: localStorage.getItem("token")
+          }
         }
-      });
-
+      );
       $this.$router.go({
         path: "/posts"
       });

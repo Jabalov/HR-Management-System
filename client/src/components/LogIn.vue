@@ -1,51 +1,39 @@
  <template>
- <div>
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">HR Managemnet system</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <router-link class="nav-item nav-link" to="/">Home</router-link>
-          <router-link class="nav-item nav-link" to="/login">login</router-link>
-          <router-link class="nav-item nav-link" to="/Registration">Register</router-link>
-        </div>
-      </div>
-    </nav>
-  <div id="sw_app" class="loginBox">
-    <img src="./user.png" class="user">
-    <h2>Log in</h2>
-    <form>
-      <p>Username</p>
-      <input v-model="username" type="text" name required>
-      <p>password</p>
-      <input v-model="password" type="password" name required>
-      <input type="submit" v-on:click="post" name value="Log in ">
-      <router-link to="{ name: 'Posts', params: { user : username } }">
-        <input type="submit" name value="Registration">
-      </router-link>
-    </form>
-  </div>
-  </div>
+  <b-container id="sw_app" class="loginBox" style="max-width:500px">
+    <!-- <b-row>
+    <i class="fas fa-user"></i>
+    </b-row>-->
+    <b-row>
+      <b-col>
+        <h2>Log in</h2>
+        <b-form>
+          <p>Username</p>
+          <input v-model="username" type="text" name required />
+          <p>password</p>
+          <input v-model="password" type="password" name required />
+          <b-row>
+            <b-col align="center">
+              <input type="submit" v-on:click="move" name value="Log in " />
+            </b-col>
+            <b-col align="center">
+              <router-link :to="{ name: 'Registration', params: { user : username } }">
+                <input type="submit" name value="Registration" />
+              </router-link>
+            </b-col>
+          </b-row>
+        </b-form>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-/* eslint-disable */
-import router from "../routes";
+import ourApi from "../services/apiConnect";
+
 const axios = require("axios");
 
 export default {
   name: "LogIn",
-
   data() {
     return {
       username: "",
@@ -53,21 +41,25 @@ export default {
     };
   },
   methods: {
-    post() {
+    post: function() {
       axios
-        .post("http://localhost:8081/auth/", {
+        .post(ourApi.apiUrl + "auth", {
           username: this.username,
           password: this.password
         })
         .then(function(response) {
+          // console.log(response);
           localStorage.setItem("token", response.data);
-          axios.defaults.headers.common["Authorization"] = response.data;
-          window.location.href = "http://localhost:8080/?#/Posts";
+          // ! axios.defaults.headers.common["Authorization"] = response.data;
+          this.move();
         })
         .catch(function(error) {
-          console.log(error.response);
-          alert(error.response.data);
+          //console.log(error);
+          alert(error);
         });
+    },
+    move: function() {
+      this.$router.push("/Posts");
     }
   }
 };
@@ -75,41 +67,23 @@ export default {
 
  <style>
 body {
-  background: #40403f;
-  margin: 0;
-  padding: 0;
-  background-size: cover;
+  /* background: #40403f; */
+
+  /* background-size: cover; */
   font-family: sans-serif;
 }
 
-.loginBox {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  height: 600px;
-  padding: 80px 40px;
-  box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.5);
-}
-
 h2 {
-  margin: 0;
-  padding: 0 0 20px;
   color: rgb(162, 200, 243);
   text-align: center;
 }
 
 .loginBox p {
-  padding: 0;
-  margin: 0;
   font-weight: bold;
   color: #fff;
 }
 
 .loginBox input {
-  width: 100%;
   margin-bottom: 20px;
 }
 
@@ -127,6 +101,7 @@ h2 {
   border: none;
   outline: none;
   height: 40px;
+  width: 12rem;
   color: #fff;
   font-size: 16px;
   background: rgb(255, 38, 126);
@@ -136,7 +111,7 @@ h2 {
 
 .loginBox input[type="submit"]:hover {
   background: #40d5ef;
-  color: #262626;
+  /* color: #262626; */
 }
 .loginBox a {
   color: #fff;
@@ -148,7 +123,7 @@ h2 {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.user {
+/* .user {
   width: 100px;
   height: 100px;
   overflow: hidden;
@@ -156,7 +131,10 @@ h2 {
   top: calc(-100px / 2);
   left: calc(50% - 50px);
   border-radius: 50%;
-}
+} */
+/* * {
+  border: 1px red solid;
+} */
 </style>
 
            

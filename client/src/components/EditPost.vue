@@ -1,49 +1,30 @@
 <template>
-<div >
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">HR Managemnet system</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <router-link class="nav-item nav-link" to="/">Home</router-link>
+  <div>
+    <div class="posts">
+      <h1 style="color:black;">Edit data</h1>
+      <div class="form">
+        <div>
+          <input type="text" name="name" placeholder="name" v-model="post" />
         </div>
-      </div>
-    </nav>
-  <div class="posts">
-    <h1 style="color:black;">Edit data</h1>
-    <div class="form">
-      <div>
-        <input type="text" name="name" placeholder="name" v-model="post">
-      </div>
-      <div>
-        <input placeholder="department" v-model="description">
-      </div>
-      <div>
-        <input type="text" name="name" placeholder="skills" v-model="skills">
-      </div>
-      <div>
-        <button class="app_post_btn" @click="updatePost()">Update</button>
+        <div>
+          <input placeholder="department" v-model="description" />
+        </div>
+        <div>
+          <input type="text" name="name" placeholder="skills" v-model="skills" />
+        </div>
+        <div>
+          <button class="app_post_btn" @click="updatePost()">Update</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
 /* eslint-disable */
 import PostsService from "@/services/PostsService";
 export default {
-  props : ['employee_id'],
+  props: ["employee_id"],
   name: "editpost",
   data() {
     return {
@@ -53,12 +34,11 @@ export default {
     };
   },
   mounted() {
-    
     this.getPost();
   },
   methods: {
     async getPost() {
-      console.log(this.props)
+      console.log(this.props);
       const response = await PostsService.getPost({
         id: this.$route.params.id
       });
@@ -67,7 +47,7 @@ export default {
       this.skills = response.data.skills;
     },
     async updatePost() {
-      await axios.put("http://localhost:8081/posts/" + id, {
+      await axios.put(ourApi.apiUrl + "/posts/" + id, {
         headers: {
           token: localStorage.getItem("token")
         }

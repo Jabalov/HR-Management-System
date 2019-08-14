@@ -1,49 +1,26 @@
  <template>
- <div>
-	 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">HR Managemnet system</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <router-link class="nav-item nav-link" to="/">Home</router-link>
-          <router-link class="nav-item nav-link" to="/login">login</router-link>
-          <router-link class="nav-item nav-link" to="/Registration">Register</router-link>
+  <div>
+    <div id="sw_app" class="loginBox" style="max-width:500px">
+      <!-- <img src="./user.png" class="user" /> -->
+      <h2>Sign Up</h2>
+      <form>
+        <p>Name</p>
+        <input v-model="name" type="text" name required />
+        <p>Username</p>
+        <input v-model="username" type="text" name required />
+        <p>Password</p>
+        <input v-model="password" type="password" name required />
+        <div class="row">
+          <p class="col">Are you HR</p>
+          <input class="col m-2" v-model="hr" type="checkbox" name required />
         </div>
-      </div>
-    </nav>
-  <div id="sw_app" class="loginBox">
-	  
-    <img src="./user.png" class="user">
-    <h2>Sign Up</h2>
-    <form>
-      <p>Name</p>
-      <input v-model="name" type="text" name required>
-      <p>Username</p>
-      <input v-model="username" type="text" name required>
-      <p>Password</p>
-      <input v-model="password" type="password" name required>
-      <div class="row" >
-        <p class="col">Are you HR</p>
-      <input class="col m-2" v-model="hr" type="checkbox" name required>
-      
-      </div>
-      <input type="submit" v-on:click="post" name value="Sign up ">
+        <input type="submit" v-on:click="post" name value="Sign up " />
 
-      <router-link to="/login">
-        <input type="submit" name value="Log in">
-      </router-link>
-    </form>
-  </div>
+        <router-link to="/login">
+          <input type="submit" name value="Log in" />
+        </router-link>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -64,7 +41,7 @@ export default {
   methods: {
     post() {
       axios
-        .post("http://localhost:8081/users/", {
+        .post(ourApi.apiUrl + "/users/", {
           username: this.username,
           password: this.password,
           name: this.name,
@@ -93,12 +70,12 @@ body {
 }
 
 .loginBox {
-  position: absolute;
+  /* position: absolute;
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 500px;
-  height: 600px;
+  height: 600px; */
   padding: 80px 40px;
   box-sizing: border-box;
   background: rgba(0, 0, 0, 0.5);
