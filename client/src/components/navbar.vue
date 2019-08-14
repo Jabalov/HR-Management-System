@@ -11,8 +11,7 @@
             <router-link to="/login">login</router-link>
           </b-nav-item>
           <b-nav-item v-on:click="hhh" v-if="loggedin">
-            
-            <router-link to="/Posts" >Employees</router-link>
+            <router-link to="/Posts">Employees</router-link>
           </b-nav-item>
           <b-nav-item v-if="loggedin">
             <router-link to="/Tasks">Tasks</router-link>
@@ -27,8 +26,8 @@
             <template slot="button-content">
               <em>User</em>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+            <b-dropdown-item href="/">Home</b-dropdown-item>
+            <b-dropdown-item v-on:click="signOut">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -42,13 +41,14 @@ import { constants } from "crypto";
 export default {
   name: "NavBar",
   data() {
-    return {
-      
-    };
+    return {};
   },
   methods: {
-    hhh : function(){
+    hhh: function() {
       // this.$router.push('Posts')
+    },
+    signOut: function() {
+      localStorage.removeItem("token");
     }
   },
   computed: {
@@ -62,7 +62,14 @@ export default {
 };
 </script>
 <style scoped>
-#navbar a.router-link-exact-active {
-  color: #fb4334;
+/* .nav-item{
+  background-color: aquamarine;
+} */
+.nav-item .router-link-exact-active {
+  border-bottom: 6px solid blueviolet;
+  border-spacing: 2px;
+  margin: 2px;
+}
+.router-link-exact-active {
 }
 </style>

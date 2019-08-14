@@ -1,5 +1,12 @@
 <template>
   <b-container>
+    <b-row align="center">
+      <b-col>
+        <b-button variant="primary" class="m-1">
+          <router-link to="AddPost" style="color:white;">Add Employee</router-link>
+        </b-button>
+      </b-col>
+    </b-row>
     <b-row>
       <b-col lg="3" class="m-1" v-for="(post,index) in posts" :key="post.id">
         <b-card class="fadeInLeftBig animated" :style="myStyle(index)">
@@ -9,13 +16,12 @@
             <p>{{post.skills}}</p>
           </div>
           <b-row v-if="post._id === selectedItem" class="m-1 animated fadeInDown">
-            <b-button class="m-1">Edit</b-button>
-            <b-button class="m-1" variant="danger">Delete</b-button>
+            <b-button  :to="`/editPost/${post._id}`" class="m-1">Edit</b-button>
+            <b-button class="m-1" variant="danger" v-on:click="deletePost(post._id)">Delete</b-button>
           </b-row>
         </b-card>
       </b-col>
     </b-row>
-    
   </b-container>
 </template>
 
@@ -65,33 +71,39 @@ export default {
           // console.log(this.posts);
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
           alert(error.errmsg);
         });
     },
     async deletePost(id) {
       // const $this = this;
-      // $this
-      //   .$swal({
-      //     title: "Are you sure?",
-      //     text: "You won't be able to revert this!",
-      //     type: "warning",
-      //     showCancelButton: true,
-      //     confirmButtonColor: "#3085d6",
-      //     cancelButtonColor: "#d33",
-      //     confirmButtonText: "Yes, delete it!"
-      //   })
-      //   .then(
-      await axios.delete(
-        "https://frozen-cove-53963.herokuapp.com/posts/" + id,
-        {
-          headers: {
-            token: localStorage.getItem("token")
-          }
+      this.$swal({
+        title: "Are you sure?",
+        text: "You can't revert your action",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes Delete it!",
+        cancelButtonText: "No, Keep it!",
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then(result => {
+        if (result.value) {
+          this.$swal(
+            "Deleted",
+            "You successfully deleted this file",
+            "success"
+          );
+
+          axios.delete(ourApi.apiUrl + "posts/" + id, {
+            headers: {
+              token: localStorage.getItem("token")
+            }
+          });
+
+          this.getPosts();
+        } else {
+          this.$swal("Cancelled", "Your Employee is saved", "info");
         }
-      );
-      $this.$router.go({
-        path: "/posts"
       });
     }
   }
@@ -101,9 +113,7 @@ export default {
 /* *{
   border: 1px solid red;
 } */
-/* body{
-  display : flex ;
-} */
+
 .add-emp-btn {
   margin-top: 5px;
 }

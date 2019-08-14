@@ -1,8 +1,9 @@
  <template>
   <b-container id="sw_app" class="loginBox" style="max-width:500px">
-    <!-- <b-row>
-    <i class="fas fa-user"></i>
-    </b-row>-->
+<b-row align="center" class="mb-5" style="margin-button:50px;">
+  <b-col>
+  <img src="./user.png" class="fluid" height="100" ></b-col>
+</b-row>
     <b-row>
       <b-col>
         <h2>Log in</h2>
@@ -13,11 +14,11 @@
           <input v-model="password" type="password" name required />
           <b-row>
             <b-col align="center">
-              <input type="submit" v-on:click="move" name value="Log in " />
+              <button @click="post" type="button" class="button">Login</button>
             </b-col>
             <b-col align="center">
               <router-link :to="{ name: 'Registration', params: { user : username } }">
-                <input type="submit" name value="Registration" />
+                <button type="button" class="button">Registration</button>
               </router-link>
             </b-col>
           </b-row>
@@ -41,14 +42,14 @@ export default {
     };
   },
   methods: {
-    post: function() {
-      axios
-        .post(ourApi.apiUrl + "auth", {
+    post: async function() {
+      await axios
+        .post(ourApi.apiUrl + "auth/", {
           username: this.username,
           password: this.password
         })
-        .then(function(response) {
-          // console.log(response);
+        .then(response => {
+          console.log(response);
           localStorage.setItem("token", response.data);
           // ! axios.defaults.headers.common["Authorization"] = response.data;
           this.move();
@@ -83,11 +84,13 @@ h2 {
   color: #fff;
 }
 
-.loginBox input {
+.loginBox input,
+button {
   margin-bottom: 20px;
 }
 
-.loginBox input {
+.loginBox input,
+button {
   border: none;
   border-bottom: 1px solid #fff;
   background: transparent;
@@ -97,7 +100,7 @@ h2 {
   font-size: 16px;
 }
 
-.loginBox input[type="submit"] {
+.loginBox .button {
   border: none;
   outline: none;
   height: 40px;
@@ -109,9 +112,9 @@ h2 {
   border-radius: 20px;
 }
 
-.loginBox input[type="submit"]:hover {
+.loginBox .button:hover {
   background: #40d5ef;
-  /* color: #262626; */
+  color: #262626;
 }
 .loginBox a {
   color: #fff;

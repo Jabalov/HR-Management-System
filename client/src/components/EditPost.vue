@@ -1,36 +1,65 @@
 <template>
   <div>
-    <div class="posts">
-      <h1 style="color:black;">Edit data</h1>
-      <div class="form">
-        <div>
-          <input type="text" name="name" placeholder="name" v-model="post" />
-        </div>
-        <div>
-          <input placeholder="department" v-model="description" />
-        </div>
-        <div>
-          <input type="text" name="name" placeholder="skills" v-model="skills" />
-        </div>
-        <div>
-          <button class="app_post_btn" @click="updatePost()">Update</button>
-        </div>
-      </div>
-    </div>
+    <b-container>
+      <!-- <b-row style="width=200px; height:200px">
+        <b-col >
+        <img class="fluid col3" src="../assets/search.png" /></b-col>
+      </b-row>-->
+      <b-row>
+        <b-col>
+          <b-form >
+            <b-form-group id="input-group-1" label="Employee name :" label-for="input-1">
+              <b-form-input
+                id="input-1"
+                v-model="employee.name"
+                type="text"
+                required
+                placeholder="change name"
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Employee department:" label-for="input-2">
+              <b-form-input
+                id="input-2"
+                v-model="employee.department"
+                required
+                placeholder="change department "
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Employee skills:" label-for="input-2">
+              <b-form-input
+                id="input-2"
+                v-model="employee.skills"
+                required
+                placeholder="change skill "
+              ></b-form-input>
+            </b-form-group>
+
+            <b-button type="submit" @click="updatePost" class="m-1" variant="primary">Submit</b-button>
+          </b-form>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import PostsService from "@/services/PostsService";
+const axios = require("axios"); // dont forget to import it right way
+import ourApi from "../services/apiConnect";
+
 export default {
-  props: ["employee_id"],
   name: "editpost",
   data() {
     return {
-      title: "",
-      description: "",
-      skills: ""
+      employee: {
+        name: "",
+        department: "",
+        skills: ""
+      },
+      id: this.$route.params.id
     };
   },
   mounted() {
@@ -38,37 +67,53 @@ export default {
   },
   methods: {
     async getPost() {
-      console.log(this.props);
-      const response = await PostsService.getPost({
-        id: this.$route.params.id
-      });
-      this.name = response.data.title;
-      this.department = response.data.description;
-      this.skills = response.data.skills;
+      axios
+        .get(`${ourApi.apiUrl}posts/${this.$route.params.id}`, {
+          headers: {
+            token: localStorage.getItem("token")
+          }
+        })
+        .then(res => {
+          this.employee = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      // console.log(this.props);
+      // const response = await PostsService.getPost({
+      //   id: this.$route.params.employee_id
+      // });
+      // this.name = response.data.title;
+      // this.department = response.data.description;
+      // this.skills = response.data.skills;
     },
     async updatePost() {
-      await axios.put(ourApi.apiUrl + "/posts/" + id, {
-        headers: {
-          token: localStorage.getItem("token")
-        }
-      });
-      console.log("this.title :", this.title);
-      await PostsService.updatePost({
-        id: this.$route.params.id,
-        name: this.title,
-        department: this.description,
-        skills: this.skills
-      });
-      this.$swal("Great!", `Your post has been updated!`, "success");
-      $this.$router.go({
-        path: "/posts"
-      });
+      await axios
+        .put(`${ourApi.apiUrl}posts/${this.$route.params.id}`, this.employee, {
+          headers: {
+            token: localStorage.getItem("token")
+            // },
+            // body : {
+            //   name: this.employee.name,
+            //   skills: this.employee.skills,
+            //   department: this.employee.department
+          }
+        })
+        .then(res => {
+          console.log(res);
+          this.$swal("Great!", `Your post has been updated!`, "success");
+          this.$router.push({
+            path: "/posts"
+          });
+        })
+        .catch(err => console.log(err));
     }
   }
 };
 </script>
 <style type="text/css">
-.form input,
+/* .form input,
 .form textarea {
   width: 500px;
   padding: 10px;
@@ -89,6 +134,6 @@ export default {
   width: 520px;
   border: none;
   cursor: pointer;
-}
+} */
 </style>
 
