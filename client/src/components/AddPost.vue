@@ -1,30 +1,33 @@
 <template>
-  <div>
- 
-    <div class="posts">
-      <h1 style="color:black;">Add Employer</h1>
-      <div class="form">
-        <div>
-          <span style="color:black;">Name</span>
-          <br />
-          <input type="text" name="title" placeholder="name" v-model="title" />
+  <b-container>
+    <b-row align="center">
+      <b-col>
+        <div class="posts">
+          <h5 style="color:black;">Add Employer</h5>
+          <div class="form text-left">
+            <div>
+              <span style="color:black;">Name</span>
+              <br />
+              <input type="text" name="title" placeholder="name" v-model="title" />
+            </div>
+            <div>
+              <span style="color:black;">Department</span>
+              <br />
+              <input placeholder="department" v-model="description" />
+            </div>
+            <div>
+              <span style="color:black;">Skills</span>
+              <br />
+              <textarea placeholder="skills" v-model="skills"></textarea>
+            </div>
+            <div>
+              <button class="app_post_btn" @click="alertPost">Add</button>
+            </div>
+          </div>
         </div>
-        <div>
-          <span style="color:black;">Department</span>
-          <br />
-          <input placeholder="department" v-model="description" />
-        </div>
-        <div>
-          <span style="color:black;">Skills</span>
-          <br />
-          <textarea placeholder="skills" v-model="skills"></textarea>
-        </div>
-        <div>
-          <button class="app_post_btn" @click="addPost">Add</button>
-        </div>
-      </div>
-    </div>
-  </div>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -57,13 +60,31 @@ export default {
             }
           }
         )
-        .then(function(response) {
-          router.push({ path: "Posts" });
+        .then(response => {
+          this.$router.push("/Posts");
         })
-        .catch(function(error) {
-          console.log(error.response);
-          alert(error.response.data);
+        .catch(error => {
+          console.log(error);
         });
+    },
+    alertPost() {
+      this.$swal({
+        title: "Are you sure?",
+        text: `this employee will be added \n name:${this.title}\n department:${this.department}\n name:${this.title}`,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes Add it!",
+        cancelButtonText: "No, cancel it!",
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then(result => {
+        if (result.value) {
+          console.log(result);
+          this.addPost();
+        } else {
+          this.$router.push("/Posts");
+        }
+      });
     }
   }
 };
@@ -71,11 +92,12 @@ export default {
 <style type="text/css">
 .form input,
 .form textarea {
-  width: 500px;
   padding: 10px;
   border: 1px solid #e0dede;
   outline: none;
   font-size: 12px;
+  width: calc(80vw );
+  max-width: 500px
 }
 .posts {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -92,11 +114,12 @@ export default {
 .app_post_btn {
   background: #4d7ef7;
   color: #fff;
-  padding: 10px 80px;
+  /* padding: 10px 80px; */
   text-transform: uppercase;
   font-size: 12px;
   font-weight: bold;
-  width: 520px;
+    width: calc(80vw );
+    max-width: 500px;
   border: none;
   cursor: pointer;
 }

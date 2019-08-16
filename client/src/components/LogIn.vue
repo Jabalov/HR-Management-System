@@ -1,9 +1,10 @@
  <template>
   <b-container id="sw_app" class="loginBox" style="max-width:500px">
-<b-row align="center" class="mb-5" style="margin-button:50px;">
-  <b-col>
-  <img src="./user.png" class="fluid" height="100" ></b-col>
-</b-row>
+    <b-row align="center" class="mb-5" style="margin-button:50px;">
+      <b-col>
+        <img src="./user.png" class="fluid" height="100" />
+      </b-col>
+    </b-row>
     <b-row>
       <b-col>
         <h2>Log in</h2>
@@ -14,7 +15,7 @@
           <input v-model="password" type="password" name required />
           <b-row>
             <b-col align="center">
-              <button @click="post" type="button" class="button">Login</button>
+              <button @click="post" type="submit" class="button">Login</button>
             </b-col>
             <b-col align="center">
               <router-link :to="{ name: 'Registration', params: { user : username } }">
@@ -24,6 +25,15 @@
           </b-row>
         </b-form>
       </b-col>
+    </b-row>
+    <b-row>
+      <b-alert
+        v-model="myError"
+        v-if="myError"
+        variant="danger"
+        class="animated rubberBand"
+        dismissible
+      >{{myError}}</b-alert>
     </b-row>
   </b-container>
 </template>
@@ -38,7 +48,8 @@ export default {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
+      myError: null
     };
   },
   methods: {
@@ -49,14 +60,13 @@ export default {
           password: this.password
         })
         .then(response => {
-          console.log(response);
           localStorage.setItem("token", response.data);
           // ! axios.defaults.headers.common["Authorization"] = response.data;
           this.move();
         })
-        .catch(function(error) {
+        .catch(error => {
           //console.log(error);
-          alert(error);
+          this.$data.myError = error.response.data;
         });
     },
     move: function() {
@@ -135,9 +145,9 @@ button {
   left: calc(50% - 50px);
   border-radius: 50%;
 } */
-/* * {
+* {
   border: 1px red solid;
-} */
+}
 </style>
 
            

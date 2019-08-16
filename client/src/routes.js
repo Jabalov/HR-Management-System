@@ -25,7 +25,12 @@ export default new VueRouter({
     },
     { path: "/Posts", name: "Posts", component: Posts },
     { path: "/AddPost", name: "addpost", component: AddPost },
-    { path: "/EditPost/:id", name: "EditPost", component: EditPost , props : true },
+    {
+      path: "/EditPost/:id",
+      name: "EditPost",
+      component: EditPost,
+      props: true
+    },
     { path: "/addtask", name: "AddTask", component: AddTask },
     { path: "/Tasks", name: "Task", component: Tasks }
   ]

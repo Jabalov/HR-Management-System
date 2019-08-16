@@ -1,47 +1,44 @@
 <template>
   <div>
     <div class="container-fliud">
-      <div class="row">
+      <div class="row"></div>
 
+      <div v-if="posts.length > 0" class="table-wrap col-9">
+        <!-- <b-table  striped hover :items="posts" :fields="fields"></b-table> -->
+        <table>
+          <tr>
+            <td width="250">Name</td>
+            <td width="150">Department</td>
+            <td width="150">Assigned to</td>
+            <td width="200">Deadline</td>
+            <td width="250" align="center">Action</td>
+          </tr>
+          <tr v-for="post in posts" :key="post.id">
+            <td>{{ post.name }}</td>
+            <td>{{ post.department }}</td>
+            <td>{{ post.by }}</td>
+            <td>{{ post.endsAt }}</td>
+            <td align="center">
+              <a href="#" class="btn btn-danger m-2" @click="deletePost(post._id)">Delete</a>
+            </td>
+          </tr>
+        </table>
+        <div class="add-emp-btn">
+          <router-link v-bind:to="{ name: 'addpost' }" class="btn btn-primary">Add Employers</router-link>
+          <router-link to="/addtask" class="btn btn-primary m-1">Add Task</router-link>
+          <button @click="getPosts" class="m-1 btn btn-success">refresh</button>
         </div>
+      </div>
 
-        <div v-if="posts.length > 0" class="table-wrap col-9">
-          <!-- <b-table  striped hover :items="posts" :fields="fields"></b-table> -->
-          <table>
-            <tr>
-              <td width="250">Name</td>
-              <td width="150">Department</td>
-              <td width="150">Assigned to</td>
-              <td width="200">Deadline</td>
-              <td width="250" align="center">Action</td>
-            </tr>
-            <tr v-for="post in posts" :key="post.id">
-              <td>{{ post.name }}</td>
-              <td>{{ post.department }}</td>
-              <td>{{ post.by }}</td>
-              <td>{{ post.endsAt }}</td>
-              <td align="center">
-                <a href="#" class="btn btn-danger m-2" @click="deletePost(post._id)">Delete</a>
-              </td>
-            </tr>
-          </table>
-          <div class="add-emp-btn">
-            <router-link v-bind:to="{ name: 'addpost' }" class="btn btn-primary">Add Employers</router-link>
-            <router-link to="/addtask" class="btn btn-primary m-1">Add Task</router-link>
-            <button @click="getPosts" class="m-1 btn btn-success">refresh</button>
-          </div>
-        </div>
-
-        <div v-else class="table-wrap m-2" style="color:black;">
-          There are no Employers.. Lets add one now
-          <br />
-          <br />
-          <router-link
-            v-bind:to="{ name: 'addpost' }"
-            class="add_post_link"
-            style="color:black;"
-          >Add Employeer</router-link>
-        </div>
+      <div v-else class="table-wrap m-2" style="color:black;">
+        There are no Employers.. Lets add one now
+        <br />
+        <br />
+        <router-link
+          v-bind:to="{ name: 'addpost' }"
+          class="add_post_link"
+          style="color:black;"
+        >Add Employeer</router-link>
       </div>
     </div>
   </div>
@@ -50,7 +47,7 @@
 <script>
 /* eslint-disable */
 import PostsService from "@/services/PostsService";
-import ourApi from "../services/apiConnect"
+import ourApi from "../services/apiConnect";
 import { async } from "q";
 const axios = require("axios");
 export default {

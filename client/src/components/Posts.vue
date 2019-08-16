@@ -1,6 +1,9 @@
 <template>
   <b-container>
-    <b-row align="center">
+    <b-row align="center" class="mb-3">
+      <b-col>
+        <b-form-select v-model="selectedDepartment" :options="departments"></b-form-select>
+      </b-col>
       <b-col>
         <b-button variant="primary" class="m-1">
           <router-link to="AddPost" style="color:white;">Add Employee</router-link>
@@ -8,7 +11,12 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col lg="3" class="m-1" v-for="(post,index) in posts" :key="post.id">
+      <b-col
+        lg="3"
+        class="m-1"
+        v-for="(post,index) in (selectedDepartment ? filtered : posts)"
+        :key="post.id"
+      >
         <b-card class="fadeInLeftBig animated" :style="myStyle(index)">
           <div v-on:click="ShowButton(post._id)">
             <h5 style="color:blue;">{{post.name}}</h5>
@@ -16,7 +24,7 @@
             <p>{{post.skills}}</p>
           </div>
           <b-row v-if="post._id === selectedItem" class="m-1 animated fadeInDown">
-            <b-button  :to="`/editPost/${post._id}`" class="m-1">Edit</b-button>
+            <b-button :to="`/editPost/${post._id}`" class="m-1">Edit</b-button>
             <b-button class="m-1" variant="danger" v-on:click="deletePost(post._id)">Delete</b-button>
           </b-row>
         </b-card>
@@ -31,12 +39,15 @@ import PostsService from "@/services/PostsService";
 import { async } from "q";
 import ourApi from "../services/apiConnect";
 const axios = require("axios");
+const _ = require("lodash");
+
 export default {
   name: "posts",
   data() {
     return {
       posts: [],
-      selectedItem: null
+      selectedItem: null,
+      selectedDepartment: null
     };
   },
   props: {
@@ -45,6 +56,22 @@ export default {
   mounted() {
     this.getPosts();
   },
+  computed: {
+    departments: function() {
+      let depa = this.posts.map(post => {
+        return { text: post.department, value: post.department };
+      });
+      depa = _.uniqBy(depa, "value");
+      depa = [{ text: "All Departments", value: null }, ...depa];
+      return depa;
+    },
+    filtered: function() {
+      return this.posts.filter(post => {
+        return post.department === this.selectedDepartment;
+      });
+    }
+  },
+
   methods: {
     ShowButton(id) {
       if (this.selectedItem === id) {
@@ -55,9 +82,9 @@ export default {
     },
 
     myStyle: function(index) {
-      //console.log(index);
       return "animation-delay : " + index * 500 + "ms";
     },
+
     getPosts: async function() {
       await axios
         .get(ourApi.apiUrl + "posts/", {
@@ -66,15 +93,13 @@ export default {
           }
         })
         .then(response => {
-          // Here is the problem, the posts can't be updated
           this.posts = response.data.allPosts;
-          // console.log(this.posts);
         })
         .catch(function(error) {
-          //console.log(error);
-          alert(error.errmsg);
+          alert(error.response.data);
         });
     },
+
     async deletePost(id) {
       // const $this = this;
       this.$swal({

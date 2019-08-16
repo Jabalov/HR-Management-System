@@ -36,8 +36,6 @@
 </template>
 
 <script>
-import { truncate } from "fs";
-import { constants } from "crypto";
 export default {
   name: "NavBar",
   data() {

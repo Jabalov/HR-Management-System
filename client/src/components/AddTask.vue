@@ -72,7 +72,7 @@ export default {
 };
 </script>
 <style type="text/css">
-.posts {
+/* .posts {
   color: black;
 }
 .form input,
@@ -105,6 +105,6 @@ export default {
   width: 520px;
   border: none;
   cursor: pointer;
-}
+} */
 </style>
 

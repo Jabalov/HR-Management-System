@@ -1,32 +1,48 @@
  <template>
-  <div>
-    <div id="sw_app" class="loginBox" style="max-width:500px">
-      <!-- <img src="./user.png" class="user" /> -->
-      <h2>Sign Up</h2>
-      <form>
-        <p>Name</p>
-        <input v-model="name" type="text" name required />
-        <p>Username</p>
-        <input v-model="username" type="text" name required />
-        <p>Password</p>
-        <input v-model="password" type="password" name required />
-        <div class="row">
-          <p class="col">Are you HR</p>
-          <input class="col m-2" v-model="hr" type="checkbox" name required />
-        </div>
-        <input type="submit" v-on:click="post" name value="Sign up " />
+  <b-container>
+    <b-row align="center" class="loginBox">
+      <b-col class="text-left">
+        <div id="sw_app" style="max-width:500px">
+          <!-- <img src="./user.png" class="user" /> -->
+          <h2>Sign Up</h2>
+          <p class="m-2" style="color:#FEAF92;">Please dont user username with an UpperCaser letter or our DataBase will explode</p>
+          <form>
+            <p>Name</p>
+            <b-row>
+              <input v-model="name" type="text" name required />
+            </b-row>
+            <p>Username</p>
+            <b-row>
+              <input v-model="username" type="text" name required />
+            </b-row>
+            <p>Password</p>
+            <b-row>
+              <input v-model="password" type="password" name required />
+            </b-row>
+            <b-row style="margin-bottom:20px">
+              <b-col style="padding-top : 20px">
+                <input v-model="hr" type="checkbox" name required />
+              </b-col>
+              <b-col>
+                <p>Are you HR</p>
+              </b-col>
+            </b-row>
+            <input type="submit" v-on:click="post" name value="Sign up " />
 
-        <router-link to="/login">
-          <input type="submit" name value="Log in" />
-        </router-link>
-      </form>
-    </div>
-  </div>
+            <router-link to="/login">
+              <input type="submit" name value="Log in" />
+            </router-link>
+          </form>
+        </div>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
 /* eslint-disable */
 const axios = require("axios");
+import ourApi from "../services/apiConnect";
 export default {
   name: "Registration",
 
@@ -41,7 +57,7 @@ export default {
   methods: {
     post() {
       axios
-        .post(ourApi.apiUrl + "/users/", {
+        .post(ourApi.apiUrl + "users/", {
           username: this.username,
           password: this.password,
           name: this.name,
@@ -52,8 +68,8 @@ export default {
           alert("Sign up completed!");
         })
         .catch(function(error) {
-          console.log(error.response);
-          alert(error.response.data);
+          console.log(error);
+          alert(error);
         });
     }
   }
@@ -63,8 +79,8 @@ export default {
  <style>
 body {
   background: #40403f;
-  margin: 0;
-  padding: 0;
+  /* margin: 0;
+  padding: 0; */
   background-size: cover;
   font-family: sans-serif;
 }
@@ -181,7 +197,6 @@ h2 {
   position: absolute;
   top: 0;
   transform: translate(30%, -10%);
-  right: 1;
   height: 22px;
   width: 22px;
   background-color: #eee;
