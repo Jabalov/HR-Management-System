@@ -1,11 +1,11 @@
  <template>
-  <b-container>
-    <b-row align="center" class="loginBox">
+  <b-container class="loginBox">
+    <b-row align="center">
       <b-col class="text-left">
         <div id="sw_app" style="max-width:500px">
           <!-- <img src="./user.png" class="user" /> -->
           <h2>Sign Up</h2>
-          <p class="m-2" style="color:#FEAF92;">Please dont user username with an UpperCaser letter or our DataBase will explode</p>
+          <!-- <p class="m-2" style="color:#FEAF92;">Please dont user username with an UpperCaser letter or our DataBase will explode</p> -->
           <form>
             <p>Name</p>
             <b-row>
@@ -19,9 +19,9 @@
             <b-row>
               <input v-model="password" type="password" name required />
             </b-row>
-            <b-row style="margin-bottom:20px">
-              <b-col style="padding-top : 20px">
-                <input v-model="hr" type="checkbox" name required />
+            <b-row style="margin-bottom:20px" align="left">
+              <b-col style="padding-top : 20px" align="right">
+                <input v-model="hr" type="checkbox" name />
               </b-col>
               <b-col>
                 <p>Are you HR</p>
@@ -56,21 +56,28 @@ export default {
   },
   methods: {
     post() {
-      axios
-        .post(ourApi.apiUrl + "users/", {
-          username: this.username,
-          password: this.password,
-          name: this.name,
-          hr: this.hr
-        })
-        .then(function(response) {
-          console.log(response);
-          alert("Sign up completed!");
-        })
-        .catch(function(error) {
-          console.log(error);
-          alert(error);
+      if (!this.username || !this.password || !this.name) {
+        this.$swal({
+          text: "you must fill all required",
+          type: "warning"
         });
+      } else {
+        axios
+          .post(ourApi.apiUrl + "users/", {
+            username: this.username,
+            password: this.password,
+            name: this.name,
+            hr: this.hr
+          })
+          .then(function(response) {
+            console.log(response);
+            alert("Sign up completed!");
+          })
+          .catch(function(error) {
+            console.log(error);
+            alert(error.errmsg);
+          });
+      }
     }
   }
 };
@@ -89,9 +96,10 @@ body {
   /* position: absolute;
   top: 60%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  height: 600px; */
+  transform: translate(-50%, -50%);*/
+  /* width: 500px; */
+  max-width: 500px;
+  height: 600px;
   padding: 20px 40px;
   box-sizing: border-box;
   background: rgba(0, 0, 0, 0.5);

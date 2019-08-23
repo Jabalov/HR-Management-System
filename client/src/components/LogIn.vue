@@ -1,5 +1,5 @@
  <template>
-  <b-container id="sw_app" class="loginBox" style="max-width:500px">
+  <b-container id="sw_app" class="loginBox" >
     <b-row align="center" class="mb-5" style="margin-button:50px;">
       <b-col>
         <img src="./user.png" class="fluid" height="100" />
@@ -145,9 +145,7 @@ button {
   left: calc(50% - 50px);
   border-radius: 50%;
 } */
-* {
-  border: 1px red solid;
-}
+
 </style>
 
            

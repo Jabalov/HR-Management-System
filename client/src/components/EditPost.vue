@@ -112,6 +112,9 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+
+</style>
 <style type="text/css">
 /* .form input,
 .form textarea {

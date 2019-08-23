@@ -163,10 +163,10 @@ table tr {
 /* table tr:nth-child(odd) {
   background: #f2f2f2;
 } */
-table tr:nth-child(1) {
+/* table tr:nth-child(1) {
   background: #4d7ef7;
   color: aliceblue;
-}
+} */
 a {
   color: #4d7ef7;
   text-decoration: none;

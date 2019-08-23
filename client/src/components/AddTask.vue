@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="posts">
+    <div class="posts " >
       <h1 style="color:black">Add Task</h1>
-      <div class="form">
+      <div class="form ">
         <div>
           <span style="color:black;">Name</span>
           <br />
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import ourApi from "../services/apiConnect";
 /* eslint-disable */
 const axios = require("axios");
 export default {
@@ -47,7 +48,7 @@ export default {
     addPost() {
       axios
         .post(
-          ourApi.apiUrl + "/task/add_post",
+          ourApi.apiUrl + "task/add_post",
           {
             name: this.name_,
             department: this.department_,
@@ -60,14 +61,17 @@ export default {
             }
           }
         )
-        .then(function(response) {
-          window.location.href = "http://localhost:8080/?#/Tasks";
+        .then((response) => {
+          console.log(response)
+          //this.move()
         })
         .catch(function(error) {
-          console.log(error.response);
-          alert(error.response.data);
+          console.log(error);
+          //alert(error.response.data);
         });
-    }
+    }, move: function() {
+      this.$router.push("/Tasks");
+    },
   }
 };
 </script>
