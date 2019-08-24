@@ -2,6 +2,7 @@
   <b-container>
     <b-row align="center">
       <b-col>
+        <router-link to="/Posts" class="btn btn-dark">Back</router-link>
         <div class="posts">
           <h5 style="color:black;">Add Employer</h5>
           <div class="form text-left">

@@ -1,25 +1,25 @@
 <template>
   <b-container>
-    <b-table striped bordered hover :items="posts" :busy="!posts" :fields="fields">
-      <b-button variant="danger" @click="deletePost(data.value)" slot="[_id]" slot-scope="data" v-html="'Del'"></b-button>
+    <b-row class="add-emp-btn" style="margin-bottom:20px">
+      <b-col>There are {{posts.length}} Tasks in this table</b-col>
+      <b-col>
+        <router-link to="/addtask" class="btn btn-primary m-1">Add Task</router-link>
+      </b-col>
+    </b-row>
+    <b-row>
+    <b-table striped sticky-header responsive bordered hover :items="posts" :busy="!posts" :fields="fields">
+      <b-button
+        variant="danger"
+        @click="deletePost(data.value)"
+        slot="[_id]"
+        slot-scope="data"
+        v-html="'Del'"
+      ></b-button>
       <div slot="table-busy" class="text-center text-danger my-2">
         <b-spinner class="align-middle"></b-spinner>
         <strong>Loading...</strong>
       </div>
     </b-table>
-    <div v-if="posts.length === 0" class="table-wrap m-2" style="color:black;">
-      There are no Tasks.. Lets add one now
-      <br />
-      <br />
-      <router-link
-        v-bind:to="{ name: 'addpost' }"
-        class="add_post_link"
-        style="color:black;"
-      >Add Employeer</router-link>
-    </div>
-    <b-row class="add-emp-btn">
-      <router-link v-bind:to="{ name: 'addpost' }" class="btn btn-primary">Add Employers</router-link>
-      <router-link to="/addtask" class="btn btn-primary m-1">Add Task</router-link>
     </b-row>
   </b-container>
 </template>
@@ -90,7 +90,7 @@ export default {
           alert(error);
         });
     },
-   
+
     async deletePost(id) {
       this.$swal({
         title: "Are you sure?",

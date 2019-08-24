@@ -1,6 +1,8 @@
 <template>
   <div>
+    <router-link to="/Tasks" class="btn btn-dark">Back</router-link>
     <div class="posts " >
+      
       <h1 style="color:black">Add Task</h1>
       <div class="form ">
         <div>
@@ -11,12 +13,12 @@
         <div>
           <span style="color:black;">Department</span>
           <br />
-          <input placeholder="department" v-model="department_" />
+          <input type="text" placeholder="department" v-model="department_" />
         </div>
         <div>
           <span style="color:black;">Number of employee working on task</span>
           <br />
-          <input placeholder="skills" v-model="by_" />
+          <input type="number" placeholder="skills" v-model="by_" />
           <br />
           <span style="color:black;">Task ends at</span>
           <br />
