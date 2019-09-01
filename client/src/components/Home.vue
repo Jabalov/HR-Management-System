@@ -3,7 +3,7 @@
     <b-row id="home" style="background-color:wheat;">
       <b-container>
         <h2 style="color:white" class>Welcome</h2>
-        <p class="text-center m-2" style="color:wheat" >
+        <p class="text-center m-2" style="color:white" >
           This software is design to Manage a human resouce system,This app is bulit with Node JS at its backend
           and Vue JS at its frontend ,this app is built for software engineering course at Tanta university
         </p>
@@ -77,11 +77,7 @@ body {
 }
 #home {
   /*background-image:/* url("../assets/background.jpg");*/
-  background-image: linear-gradient(
-    90deg,
-    rgb(54, 181, 183) 0%,
-    rgb(19, 126, 105) 100%
-  );
+background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
 }
 /* .row{
   border : red solid 1px ;

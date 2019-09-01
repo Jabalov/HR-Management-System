@@ -1,6 +1,11 @@
 <template>
   <div>
     <b-container>
+      <b-row>
+        <b-col>
+          <router-link to="/Posts" class="btn btn-info mb-2">Back</router-link>
+        </b-col>
+      </b-row>
       <!-- <b-row style="width=200px; height:200px">
         <b-col >
         <img class="fluid col3" src="../assets/search.png" /></b-col>
