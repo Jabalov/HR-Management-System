@@ -12,7 +12,7 @@ import AddTask from "./components/AddTask.vue";
 
 Vue.use(VueRouter);
 export default new VueRouter({
-  node: "history",
+  mode: "history",
   base: process.env.BASE_URL,
   routes: [
     { path: "/", name: "Home", component: Home },

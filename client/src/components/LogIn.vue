@@ -15,7 +15,7 @@
           <input v-model="password" type="password" name required />
           <b-row>
             <b-col align="center">
-              <button @click="post" type="submit" class="button">Login</button>
+              <button @click="post" type="button" class="button">Login</button>
             </b-col>
             <b-col align="center">
               <router-link :to="{ name: 'Registration', params: { user : username } }">

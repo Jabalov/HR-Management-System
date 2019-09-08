@@ -27,10 +27,10 @@
                 <p>Are you HR</p>
               </b-col>
             </b-row>
-            <input type="submit" v-on:click="post" name value="Sign up " />
+            <input type="button" v-on:click="post" name value="Sign up " />
 
             <router-link to="/login">
-              <input type="submit" name value="Log in" />
+              <input type="button" name value="Log in" />
             </router-link>
           </form>
         </div>
