@@ -2,7 +2,7 @@
 
 Software Engineering Educational Subject, Simple Tasks
 
-## HR system management
+## HR Management System 
 
 Single page application to manipulate employee data
 
